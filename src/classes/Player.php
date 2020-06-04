@@ -1,8 +1,7 @@
 <?php
 
-
-define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
-require ROOT_PATH . "vendor/autoload.php";
+//define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
+//require ROOT_PATH . "vendor/autoload.php";
 
 
 class Player
@@ -16,19 +15,9 @@ class Player
 
     public function __construct($dbContent = false, $userInput = false)
     {
-        $instance = new self();
-        if ($dbContent){
-            $members= $this->createMembersFromDBContent($dbContent);
-        }elseif ($userInput){
-            $members= $this->createMembersFromUserInput($userInput);
-        }else{
-            $members= $this->createMembersDefault();
-        }
-        $instance->fill($members);
-        return $instance;
     }
 
-    private  function createMembersDefault(){
+    public  function createMembersDefault(){
         $members = [];
         $members["playerName"]="";
         $members["fistName"]="";
@@ -38,8 +27,18 @@ class Player
         return $members;
     }
 
-    private function createMembersFromUserInput($userInput){
+    public  function  createDefaultPlayer(){
+        $instance = new self();
+        $instance->playerName="Henry";
+        return $instance;
+    }
 
+    private function createMembersFromUserInput($userInput){
+        $members = [];
+        $members["playerName"]=$userInput["playername"];
+        $members["playerName"]=$userInput["firstname"];
+        $members["playerName"]=$userInput["lastname"];
+        $members["City"]=City::getCityFromCityName();
     }
 
     private function createMembersFromDBContent($dbContent){
@@ -51,4 +50,49 @@ class Player
         $members["dbID"]=$dbContent["ID"];
 
     }
+
+    public function fillPlayerFromDBID($dbID){
+        $data = $this->getPlayerDataFromDB($dbID);
+        $this->createMembersFromDBContent($data);
+    }
+
+    private function getPlayerDataFromDB($dbID){
+        $pdo = new DatabaseConnection();
+        $pdo = $pdo->create();
+        $sql = "select * from Players where ID=:id";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValues("id",$dbID);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
+
+    public function getPlayerDataAsJson(){
+        return json_encode(get_object_vars($this));
+    }
+
+    public function getPlayerName()
+    {
+        return $this->playerName;
+    }
+
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+
+
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
 require ROOT_PATH . "vendor/autoload.php";
 
@@ -20,9 +19,11 @@ class City
         $instance = new self("Jena", "1");
     }
 
-    /**
-     * @return mixed
-     */
+    public  function getCityFromCityName($name){
+
+    }
+
+
     public function getCityName()
     {
         return $this->cityName;
