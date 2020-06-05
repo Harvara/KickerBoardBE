@@ -13,7 +13,7 @@ class Player
     private $dbID;
 
 
-    public function __construct($dbContent = false, $userInput = false)
+    public function __construct()
     {
     }
 
@@ -62,7 +62,7 @@ class Player
         $members["playerName"]=$dbContent["Playername"];
         $members["firstName"]=$dbContent["Firstname"];
         $members["lastName"]=$dbContent["Lastname"];
-        $members["city"]=City::getCityFromID($dbContent["CityID"]);
+        $members["city"]=City::createCityFromID($dbContent["CityID"]);
         $members["dbID"]=$dbContent["ID"];
         return $members;
     }

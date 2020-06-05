@@ -24,6 +24,7 @@ echo json_encode($playersAsJson);
 function generatePlayerList(){
     $pdo = getDBConnection();
     $playersFromDB = getPlayersArrayFromDB($pdo);
+    $pdo ="";
     return createPlayersFromArray($playersFromDB);
 }
 
