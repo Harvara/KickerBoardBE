@@ -17,6 +17,27 @@ class Player
     {
     }
 
+    public  static  function fromUserInput($userInput){
+        $instance = new self();
+        $members = $instance->createMembersFromUserInput($userInput);
+        $instance->fill($members);
+        return $instance;
+    }
+
+    public static function withDBContent($dbContent){
+        $instance = new self();
+        $members = $instance->createMembersFromDBContent($dbContent);
+        $instance->fill($members);
+        return $instance;
+    }
+
+    public  static function  defaultPlayer(){
+        $instance = new self();
+        $members = $instance->createMembersDefault();
+        $instance->fill($members);
+        return $instance;
+    }
+
     public  function createMembersDefault(){
         $members = [];
         $members["playerName"]="";
@@ -27,33 +48,31 @@ class Player
         return $members;
     }
 
-    public  function  createDefaultPlayer(){
-        $instance = new self();
-        $instance->playerName="Henry";
-        return $instance;
-    }
-
     private function createMembersFromUserInput($userInput){
         $members = [];
         $members["playerName"]=$userInput["playername"];
         $members["playerName"]=$userInput["firstname"];
         $members["playerName"]=$userInput["lastname"];
-        $members["City"]=City::getCityFromCityName();
+        $members["City"]=City::getCityFromCityName($userInput["city"]);
+        return $members;
     }
 
     private function createMembersFromDBContent($dbContent){
         $members=[];
         $members["playerName"]=$dbContent["Playername"];
-        $members["playerName"]=$dbContent["Firstname"];
-        $members["playerName"]=$dbContent["Lastname"];
-        $members["City"]=City::getCityFromID();
+        $members["firstName"]=$dbContent["Firstname"];
+        $members["lastName"]=$dbContent["Lastname"];
+        $members["city"]=City::getCityFromID($dbContent["CityID"]);
         $members["dbID"]=$dbContent["ID"];
-
+        return $members;
     }
 
-    public function fillPlayerFromDBID($dbID){
-        $data = $this->getPlayerDataFromDB($dbID);
-        $this->createMembersFromDBContent($data);
+    private function fill($members){
+        $this->playerName=$members["playerName"];
+        $this->firstName=$members["firstName"];
+        $this->lastName=$members["lastName"];
+        $this->city=$members["city"];
+        $this->dbID=$members["dbID"];
     }
 
     private function getPlayerDataFromDB($dbID){
@@ -66,8 +85,6 @@ class Player
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-
-
 
     public function getPlayerDataAsJson(){
         return json_encode(get_object_vars($this));

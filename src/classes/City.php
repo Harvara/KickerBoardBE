@@ -1,8 +1,5 @@
 <?php
 
-define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
-require ROOT_PATH . "vendor/autoload.php";
-
 class City
 {
     private $cityName;
