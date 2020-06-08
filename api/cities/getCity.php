@@ -31,9 +31,9 @@ foreach ($cityList as $city){
     array_push($citiesAsJson, json_decode($city->getCityDataAsJson()));
 }
 
-var_dump($citiesAsJson);
+//var_dump($citiesAsJson);
 
-//echo json_encode($citiesAsJson);
+echo json_encode($citiesAsJson);
 
 
 function getCityByID(){
@@ -82,7 +82,7 @@ function getParameterIndex(){
 
 
 function validateName(){
-    $regex = "^[A-ZÖÄÜ][a-zöäüß]*$";
+    $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
     return preg_match($regex, $_GET["name"]);
 }
 

@@ -20,7 +20,10 @@ class City
     public static function withID($dbid){
         $instance = new self();
         $dbContent = $instance->getCityFromDB($dbid, "ID");
-        $members = $instance->createMembersFromDBContent($dbContent);
+        if (sizeof($dbContent) != 1){
+            return null;
+        }
+        $members = $instance->createMembersFromDBContent($dbContent[0]);
         $instance->fill($members);
         return $instance;
     }
@@ -38,17 +41,23 @@ class City
     private function getCityFromDB($value,$attribute){
         $pdo = new DatabaseConnection();
         $pdo = $pdo ->create();
+        $sql ="";
+        $statement = null;
         if (!$value || !$attribute){
             $sql = "Select * from Cities";
             $statement = $pdo->prepare($sql);
             $statement->execute();
         }else{
-            $sql = "Select * from Cities where :attribute=:value";
+            switch ($attribute){
+                case "ID":
+                    $sql="Select * from Cities where ID=:value";
+                    break;
+                case "Name":
+                    $sql = "Select * from Cities where Name=:value";
+            }
             $statement = $pdo->prepare($sql);
-            $statement->execute(array(
-                ":attribute"=>$attribute,
-                ":value"=>$value
-            ));
+            $statement->bindValue(":value", $value);
+            $statement->execute();
         }
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -58,6 +67,10 @@ class City
 
     private function createMembersFromDBContent($dbContent){
         $members = [];
+        $test = [
+            "test" => "abv",
+            "qwe" => "fjf"
+        ];
         $members["dbID"]=$dbContent["ID"];
         $members["cityName"]=$dbContent["Name"];
         return $members;
