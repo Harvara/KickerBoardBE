@@ -10,23 +10,50 @@ class City
     }
 
 
-    public static function createCityFromID($dbid){
+    public  static  function withDBContent($dbContent){
         $instance = new self();
-        $dbContent = $instance->getCityfromDBID($dbid);
         $members = $instance->createMembersFromDBContent($dbContent);
         $instance->fill($members);
         return $instance;
     }
 
-    private function getCityfromDBID($dbid){
-        $pdo = new DatabaseConnection();
-        $pdo = $pdo->create();
-        $sql="select * from Cities where ID=:id";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValue(":id",$dbid, PDO::PARAM_INT);
-        $statement->execute();
-        return $statement->fetch(PDO::FETCH_ASSOC);
+    public static function withID($dbid){
+        $instance = new self();
+        $dbContent = $instance->getCityFromDB($dbid, "ID");
+        $members = $instance->createMembersFromDBContent($dbContent);
+        $instance->fill($members);
+        return $instance;
     }
+
+
+    public  static function withName($cityName){
+        $instance = new self();
+        $dbContent = $instance->getCityFromDB($cityName, "Name");
+        $members = $instance->createMembersFromDBContent($dbContent);
+        $instance->fill($members);
+        return $instance;
+    }
+
+
+    private function getCityFromDB($value,$attribute){
+        $pdo = new DatabaseConnection();
+        $pdo = $pdo ->create();
+        if (!$value || !$attribute){
+            $sql = "Select * from Cities";
+            $statement = $pdo->prepare($sql);
+            $statement->execute();
+        }else{
+            $sql = "Select * from Cities where :attribute=:value";
+            $statement = $pdo->prepare($sql);
+            $statement->execute(array(
+                ":attribute"=>$attribute,
+                ":value"=>$value
+            ));
+        }
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 
 
     private function createMembersFromDBContent($dbContent){
@@ -36,7 +63,7 @@ class City
         return $members;
     }
 
-    public function getCityAsJson(){
+    public function getCityDataAsJson(){
         return json_encode(get_object_vars($this));
 }
 

@@ -15,7 +15,6 @@ $playersAsJson =[];
 
 foreach ($playerList as $player){
     array_push($playersAsJson,json_decode($player->getPlayerDataAsJson()));
-    //echo $player->getPlayerDataAsJson();
 }
 
 
@@ -25,7 +24,6 @@ echo json_encode($playersAsJson);
 function generatePlayerList(){
     $pdo = getDBConnection();
     $playersFromDB = getPlayersArrayFromDB($pdo);
-    $pdo ="";
     return createPlayersFromArray($playersFromDB);
 }
 

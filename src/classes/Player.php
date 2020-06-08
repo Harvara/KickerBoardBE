@@ -62,7 +62,7 @@ class Player
         $members["playerName"]=$dbContent["Playername"];
         $members["firstName"]=$dbContent["Firstname"];
         $members["lastName"]=$dbContent["Lastname"];
-        $members["city"]=City::createCityFromID($dbContent["CityID"]);
+        $members["city"]=City::withID($dbContent["CityID"]);
         $members["dbID"]=$dbContent["ID"];
         return $members;
     }
