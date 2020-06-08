@@ -33,7 +33,12 @@ class City
         $members = [];
         $members["dbID"]=$dbContent["ID"];
         $members["cityName"]=$dbContent["Name"];
+        return $members;
     }
+
+    public function getCityAsJson(){
+        return json_encode(get_object_vars($this));
+}
 
 
     private function fill($members){

@@ -87,6 +87,13 @@ class Player
     }
 
     public function getPlayerDataAsJson(){
+        $city = $this->city->getCityAsJson();
+        $city = json_decode($city);
+        $player = json_encode(get_object_vars($this));
+        $player = json_decode($player,true);
+        $player["city"] = $city;
+        $player = json_encode($player);
+        echo $player .PHP_EOL;
         return json_encode(get_object_vars($this));
     }
 
