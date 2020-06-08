@@ -12,12 +12,14 @@ $playerList = generatePlayerList();
 
 $playersAsJson =[];
 
+
 foreach ($playerList as $player){
     array_push($playersAsJson,json_decode($player->getPlayerDataAsJson()));
+    //echo $player->getPlayerDataAsJson();
 }
 
 
-//echo json_encode($playersAsJson);
+echo json_encode($playersAsJson);
 
 
 function generatePlayerList(){

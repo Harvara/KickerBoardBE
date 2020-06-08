@@ -93,8 +93,7 @@ class Player
         $player = json_decode($player,true);
         $player["city"] = $city;
         $player = json_encode($player);
-        echo $player .PHP_EOL;
-        return json_encode(get_object_vars($this));
+        return $player;
     }
 
     public function getPlayerName()
