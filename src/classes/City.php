@@ -32,7 +32,10 @@ class City
     public  static function withName($cityName){
         $instance = new self();
         $dbContent = $instance->getCityFromDB($cityName, "Name");
-        $members = $instance->createMembersFromDBContent($dbContent);
+        if (sizeof($dbContent) != 1){
+            return null;
+        }
+        $members = $instance->createMembersFromDBContent($dbContent[0]);
         $instance->fill($members);
         return $instance;
     }

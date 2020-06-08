@@ -1,7 +1,7 @@
 <?php
 
-//header("Access-Control-Allow-Origin: *");
-//header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 
 
 define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
@@ -22,10 +22,11 @@ if (!$paramIndex){
             $cityList =   getCityByID();
             break;
         case "name":
-            $cityLIst =   getCityByName();
+            $cityList = getCityByName();
             break;
     }
 }
+
 
 foreach ($cityList as $city){
     array_push($citiesAsJson, json_decode($city->getCityDataAsJson()));
