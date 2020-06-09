@@ -23,23 +23,23 @@ echo json_encode($playersAsJson);
 
 function generatePlayerList(){
     $pdo = getDBConnection();
-    $playersFromDB = getPlayersArrayFromDB($pdo);
-    return createPlayersFromArray($playersFromDB);
+    $playerNamesFromDB = getPlayerNameArrayFromDB($pdo);
+    return createPlayersFromArray($playerNamesFromDB);
 }
 
 
-function createPlayersFromArray($playersFromDB){
+function createPlayersFromArray($playerNamesFromDB){
     $playerList = [];
-    foreach ($playersFromDB as $playerItem){
-        $newPlayer = Player::withDBContent($playerItem);
+    foreach ($playerNamesFromDB as $playerName){
+        $newPlayer = Player::withPlayername($playerName["Playername"]);
         array_push($playerList,$newPlayer);
     }
     return $playerList;
 }
 
 
-function getPlayersArrayFromDB($pdo){
-    $sql = "Select * from Players";
+function getPlayerNameArrayFromDB($pdo){
+    $sql = "Select Playername from Players";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);

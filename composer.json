@@ -13,5 +13,8 @@
             "config/DatabaseConnection.php",
             "config/Settings.php"
         ]
-    }
+    },
+  "require": {
+    "ext-json": "*"
+  }
 }

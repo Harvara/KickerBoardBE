@@ -10,13 +10,6 @@ class City
     }
 
 
-    public  static  function withDBContent($dbContent){
-        $instance = new self();
-        $members = $instance->createMembersFromDBContent($dbContent);
-        $instance->fill($members);
-        return $instance;
-    }
-
     public static function withID($dbid){
         $instance = new self();
         $dbContent = $instance->getCityFromDB($dbid, "ID");
@@ -27,13 +20,6 @@ class City
         $instance->fill($members);
         return $instance;
     }
-
-    public static  function createNewWithName($name){
-        $instance = new self();
-        $instance->createNewDBEntryByName($name);
-        return City::withDBName($name);
-    }
-
 
     public  static function withDBName($cityName){
         $instance = new self();
@@ -46,13 +32,19 @@ class City
         return $instance;
     }
 
+    public static  function createNewWithName($name){
+        $instance = new self();
+        $instance->createNewDBEntryByName($name);
+        return City::withDBName($name);
+    }
+
     private  function createNewDBEntryByName($name){
         $pdo = new DatabaseConnection();
         $pdo = $pdo->create();
         $sql = "Insert into Cities (Name) values (:name)";
         $statement = $pdo->prepare($sql);
         $statement->bindValue(":name", $name);
-        return $statement->execute();
+        $statement->execute();
     }
 
 
@@ -85,15 +77,8 @@ class City
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
     private function createMembersFromDBContent($dbContent){
         $members = [];
-        $test = [
-            "test" => "abv",
-            "qwe" => "fjf"
-        ];
         $members["dbID"]=$dbContent["ID"];
         $members["cityName"]=$dbContent["Name"];
         return $members;

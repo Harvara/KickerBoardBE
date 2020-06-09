@@ -17,33 +17,15 @@ class Player
     {
     }
 
-
     public static function  withPlayername($playername){
         $instance = new self();
         $dbContent = $instance->getPlayerDataFromDB($playername,"Playername");
         if(sizeof($dbContent)==0){
             return null;
         }
-        $members = $instance->createMembersFromDBContent($dbContent);
-        $instance->fill($members);
+        $instance->fill($dbContent);
         return $instance;
     }
-
-    public static function withDBContent($dbContent){
-        $instance = new self();
-        $members = $instance->createMembersFromDBContent($dbContent);
-        $instance->fill($members);
-        return $instance;
-    }
-
-    public  static function  defaultPlayer(){
-        $instance = new self();
-        $members = $instance->createMembersDefault();
-        $instance->fill($members);
-        return $instance;
-    }
-
-
 
     public static function validateName($name){
         $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
@@ -59,46 +41,26 @@ class Player
         return false;
     }
 
-    public  function createMembersDefault(){
-        $members = [];
-        $members["playerName"]="";
-        $members["fistName"]="";
-        $members["lastName"]="";
-        $members["city"]=null;
-        $members["dbID"]=0;
-        return $members;
-    }
-
-    private function createMembersFromUserInput($userInput){
-        $members = [];
-        $members["playerName"]=$userInput["playername"];
-        $members["playerName"]=$userInput["firstname"];
-        $members["playerName"]=$userInput["lastname"];
-        $members["City"]=City::getCityFromCityName($userInput["city"]);
-        return $members;
-    }
-
-    private function createMembersFromDBContent($dbContent){
-        $members=[];
-        $members["playerName"]=$dbContent["Playername"];
-        $members["firstName"]=$dbContent["Firstname"];
-        $members["lastName"]=$dbContent["Lastname"];
-        $members["city"]=City::withID($dbContent["CityID"]);
-        $members["dbID"]=$dbContent["ID"];
-        return $members;
-    }
-
     private function fill($members){
-        $this->playerName=$members["playerName"];
-        $this->firstName=$members["firstName"];
-        $this->lastName=$members["lastName"];
-        $this->city=$members["city"];
-        $this->dbID=$members["dbID"];
+        $this->playerName=$members["Playername"];
+        $this->firstName=$members["Firstname"];
+        $this->lastName=$members["Lastname"];
+        $city = City::withID($members["CityID"]);
+        $this->city=$city;
+        $this->dbID=$members["ID"];
     }
 
     private function getPlayerDataFromDB($value, $attribute){
         $pdo = new DatabaseConnection();
         $pdo = $pdo->create();
+        $statement = $this->createPDOStatement($value, $attribute, $pdo);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result)===1) $result=$result[0];
+        return $result;
+    }
+
+    private function createPDOStatement($value, $attribute, $pdo){
         $statement = null;
         switch ($attribute){
             case "Playername":
@@ -114,10 +76,7 @@ class Player
             default:
                 die("Error");
         }
-        $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        if (sizeof($result)===1) $result=$result[0];
-        return $result;
+        return $statement;
     }
 
     public function getPlayerDataAsJson(){
