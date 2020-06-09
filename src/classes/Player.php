@@ -27,16 +27,32 @@ class Player
         return $instance;
     }
 
+    public static function  withPlayerID($playerid){
+        $instance = new self();
+        $dbContent = $instance->getPlayerDataFromDB($playerid,"ID");
+        if(sizeof($dbContent)==0){
+            return null;
+        }
+        $instance->fill($dbContent);
+        return $instance;
+    }
+
     public static function validateName($name){
         $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
         return preg_match($regex, $name);
     }
 
     public static function validatePlayerName($name){
-        $playerData = self::getPlayerDataFromDB($name, "Playername");
-        if (!$playerData){
-            $regex = "/^[A-ZÖÄÜa-zöäüß0-9]*$/";
-            return preg_match($regex, $name);
+        $regex = "/^[A-ZÖÄÜa-zöäüß0-9]*$/";
+        $regexOk = preg_match($regex, $name);
+        if ($regexOk){
+            $playerData = self::getPlayerDataFromDB($name, "Playername");
+            if (!$playerData){
+                return true;
+            }
+            else{
+                return  false;
+            }
         }
         return false;
     }

@@ -8,17 +8,56 @@ define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
 require ROOT_PATH . "vendor/autoload.php";
 
 
-$playerList = generatePlayerList();
-
-$playersAsJson =[];
+$paramIndex = getParameterIndex();
 
 
-foreach ($playerList as $player){
-    array_push($playersAsJson,json_decode($player->getPlayerDataAsJson()));
+
+if (!$paramIndex){
+    //no identifier given, return all cities
+    allPlayersRequested();
+}else{
+    switch ($paramIndex) {
+        case "id":
+            playerRequestedByID();
+            break;
+        case "name":
+            playerRequestedByName();
+            break;
+    }
 }
 
 
-echo json_encode($playersAsJson);
+function allPlayersRequested(){
+    $playerList = generatePlayerList();
+    $playersAsJson =[];
+
+    foreach ($playerList as $player){
+        array_push($playersAsJson,json_decode($player->getPlayerDataAsJson()));
+    }
+    echo json_encode($playersAsJson);
+}
+
+
+function playerRequestedByID(){
+    $player = Player::withPlayerID($_GET["id"]);
+    if (!$player){
+        returnError("Could not find player");
+    }else{
+        echo $player->getPlayerDataAsJson();
+    }
+}
+
+
+
+function playerRequestedByName(){
+    $player = Player::withPlayername($_GET["name"]);
+    if (!$player){
+        returnError("Could not find player");
+    }else{
+        echo $player->getPlayerDataAsJson();
+    }
+}
+
 
 
 function generatePlayerList(){
@@ -49,4 +88,33 @@ function getDBConnection(){
     $pdo = new DatabaseConnection();
     $pdo = $pdo->create();
     return $pdo;
+}
+
+function getParameterIndex(){
+    if(isset($_GET["id"])){
+        if (validateID()){
+            return "id";
+        }else{
+            dieWithError("InvalidParameter");
+        }
+    }elseif (isset($_GET["name"])){
+        if (Player::validatePlayerName($_GET["name"])){
+            return "name";
+        }else{
+            dieWithError("Invalid Parameter");
+        }
+    }
+    return false;
+}
+
+
+function validateID(){
+    $regex = "/^\d+$/";
+    return  preg_match($regex,$_GET["id"]);
+}
+
+
+function returnError($message){
+    http_response_code(400);
+    echo json_encode(["Error"=>$message]);
 }
