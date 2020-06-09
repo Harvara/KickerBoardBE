@@ -110,10 +110,7 @@ class City
     }
 
 
-    public function getCityName()
-    {
-        return $this->cityName;
+    public function getDBID(){
+        return $this->dbID;
     }
-
-
 }

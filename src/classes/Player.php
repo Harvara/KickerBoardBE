@@ -17,9 +17,14 @@ class Player
     {
     }
 
-    public  static  function fromUserInput($userInput){
+
+    public static function  withPlayername($playername){
         $instance = new self();
-        $members = $instance->createMembersFromUserInput($userInput);
+        $dbContent = $instance->getPlayerDataFromDB($playername,"Playername");
+        if(sizeof($dbContent)==0){
+            return null;
+        }
+        $members = $instance->createMembersFromDBContent($dbContent);
         $instance->fill($members);
         return $instance;
     }
@@ -38,9 +43,6 @@ class Player
         return $instance;
     }
 
-    public static function createFromName(){
-        $instance = new self();
-    }
 
 
     public static function validateName($name){
@@ -49,9 +51,9 @@ class Player
     }
 
     public static function validatePlayerName($name){
-        $playerData = self::getPlayerDataFromDB($name, "playername");
+        $playerData = self::getPlayerDataFromDB($name, "Playername");
         if (!$playerData){
-            $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+            $regex = "/^[A-ZÖÄÜa-zöäüß0-9]*$/";
             return preg_match($regex, $name);
         }
         return false;
@@ -99,20 +101,18 @@ class Player
         $pdo = $pdo->create();
         $statement = null;
         switch ($attribute){
-            case "playername":
+            case "Playername":
                 $sql = "select * from Players where Playername = :playername";
                 $statement = $pdo->prepare($sql);
                 $statement->bindValue(":playername", $value);
                 break;
-            case "id":
+            case "ID":
                 $sql = "select * from Players where ID = :id";
                 $statement = $pdo->prepare($sql);
                 $statement->bindValue(":id", $value);
                 break;
             default:
-                $sql = "select * from Players";
-                $statement = $pdo->prepare($sql);
-                break;
+                die("Error");
         }
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -121,7 +121,7 @@ class Player
     }
 
     public function getPlayerDataAsJson(){
-        $city = $this->city->getCityAsJson();
+        $city = $this->city->getCityDataAsJson();
         $city = json_decode($city);
         $player = json_encode(get_object_vars($this));
         $player = json_decode($player,true);
