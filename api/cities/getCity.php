@@ -47,7 +47,7 @@ function getCityByID(){
 function getCityByName(){
     $cityList = [];
     $name = $_GET["name"];
-    array_push($cityList, City::withName($name));
+    array_push($cityList, City::withDBName($name));
     return $cityList;
 }
 
