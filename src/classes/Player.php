@@ -6,10 +6,10 @@
 
 class Player
 {
-    private $playerName;
-    private $firstName;
-    private $lastName;
-    private $city;
+    public $playerName;
+    public $firstName;
+    public $lastName;
+    public $city;
     private $dbID;
 
 
@@ -36,6 +36,25 @@ class Player
         $members = $instance->createMembersDefault();
         $instance->fill($members);
         return $instance;
+    }
+
+    public static function createFromName(){
+        $instance = new self();
+    }
+
+
+    public static function validateName($name){
+        $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+        return preg_match($regex, $name);
+    }
+
+    public static function validatePlayerName($name){
+        $playerData = self::getPlayerDataFromDB($name, "playername");
+        if (!$playerData){
+            $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+            return preg_match($regex, $name);
+        }
+        return false;
     }
 
     public  function createMembersDefault(){
@@ -75,14 +94,29 @@ class Player
         $this->dbID=$members["dbID"];
     }
 
-    private function getPlayerDataFromDB($dbID){
+    private function getPlayerDataFromDB($value, $attribute){
         $pdo = new DatabaseConnection();
         $pdo = $pdo->create();
-        $sql = "select * from Players where ID=:id";
-        $statement = $pdo->prepare($sql);
-        $statement->bindValues("id",$dbID);
+        $statement = null;
+        switch ($attribute){
+            case "playername":
+                $sql = "select * from Players where Playername = :playername";
+                $statement = $pdo->prepare($sql);
+                $statement->bindValue(":playername", $value);
+                break;
+            case "id":
+                $sql = "select * from Players where ID = :id";
+                $statement = $pdo->prepare($sql);
+                $statement->bindValue(":id", $value);
+                break;
+            default:
+                $sql = "select * from Players";
+                $statement = $pdo->prepare($sql);
+                break;
+        }
         $statement->execute();
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        if (sizeof($result)===1) $result=$result[0];
         return $result;
     }
 
@@ -96,25 +130,6 @@ class Player
         return $player;
     }
 
-    public function getPlayerName()
-    {
-        return $this->playerName;
-    }
-
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    public function getCity()
-    {
-        return $this->city;
-    }
 
 
 
