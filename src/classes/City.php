@@ -49,8 +49,12 @@ class City
 
 
     public static function validateName($name){
-            $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
-            return preg_match($regex, $name);
+        $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+        $regexOk = preg_match($regex, $name);
+        if ($regexOk && strlen($name)>0){
+            return true;
+        }
+        return false;
     }
 
     private function getCityFromDB($value,$attribute){

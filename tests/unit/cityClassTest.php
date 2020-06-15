@@ -32,6 +32,18 @@ class cityClassTest extends \Codeception\Test\Unit
         $this->assertNull($city);
         $city = City::withDBName(null);
         $this->assertNull($city);
+    }
 
+    public  function testValidation(){
+        $this->assertTrue(City::validateName("Jena"));
+        $this->assertTrue(City::validateName("Straßburg"));
+        //$this->assertTrue(City::validateName("Ährenfelß"));
+        //$this->assertTrue(City::validateName("Öäüß"));
+
+        $this->assertFalse(City::validateName("jena"));
+        $this->assertFalse(City::validateName("AAchen"));
+        $this->assertFalse(City::validateName("123"));
+        $this->assertFalse(City::validateName(123));
+        $this->assertFalse(City::validateName(null));
     }
 }
