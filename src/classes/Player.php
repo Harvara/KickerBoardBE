@@ -1,8 +1,5 @@
 <?php
 
-//define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
-//require ROOT_PATH . "vendor/autoload.php";
-
 
 class Player
 {
@@ -10,7 +7,7 @@ class Player
     public $firstName;
     public $lastName;
     public $city;
-    private $dbID;
+    public $dbID;
 
 
     public function __construct()
@@ -39,22 +36,30 @@ class Player
 
     public static function validateName($name){
         $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
-        return preg_match($regex, $name);
+        $regexOk = preg_match($regex, $name);
+        if ($regexOk && strlen($name)>0){
+            return true;
+        }
+        return false;
     }
 
     public static function validatePlayerName($name){
         $regex = "/^[A-ZÖÄÜa-zöäüß0-9]*$/";
         $regexOk = preg_match($regex, $name);
-        if ($regexOk){
-            $playerData = self::getPlayerDataFromDB($name, "Playername");
-            if (!$playerData){
-                return false;
-            }
-            else{
-                return  true;
-            }
+        if ($regexOk && strlen($name)>0){
+            return true;
         }
         return false;
+    }
+
+    public static function checkIfPlayerExists($value, $attribute){
+        $playerData = self::getPlayerDataFromDB($value, $attribute);
+        if (!$playerData){
+            return false;
+        }
+        else{
+            return  true;
+        }
     }
 
     private function fill($members){
