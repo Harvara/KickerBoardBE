@@ -8,8 +8,6 @@
         "classmap": [
             "src/classes/City.php",
             "src/classes/Player.php",
-            "src/classes/Test.php",
-            "src/classes/Test2.php",
             "config/DatabaseConnection.php",
             "config/Settings.php"
         ]

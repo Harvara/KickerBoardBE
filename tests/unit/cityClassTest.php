@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
+require ROOT_PATH . "vendor/autoload.php";
+
+
 class cityClassTest extends \Codeception\Test\Unit
 {
     /**
@@ -37,7 +42,7 @@ class cityClassTest extends \Codeception\Test\Unit
     public  function testValidation(){
         $this->assertTrue(City::validateName("Jena"));
         $this->assertTrue(City::validateName("Straßburg"));
-        //$this->assertTrue(City::validateName("Ährenfelß"));
+        $this->assertTrue(City::validateName("Ährenfelß"));
         //$this->assertTrue(City::validateName("Öäüß"));
 
         $this->assertFalse(City::validateName("jena"));

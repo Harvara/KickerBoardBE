@@ -44,15 +44,13 @@ class playerClassTest extends \Codeception\Test\Unit
         $this->assertTrue(Player::validatePlayerName("ALLUPPERCASE"));
         $this->assertTrue(Player::validatePlayerName("12346789"));
         $this->assertTrue(Player::validatePlayerName("ßöäüÖÄÜ"));
-        $this->assertTrue(Player::validatePlayerName("Ährenfels"));
         $this->assertFalse(Player::validatePlayerName("Player-1234"));
         $this->assertFalse(Player::validatePlayerName(""));
         $this->assertFalse(Player::validatePlayerName(null));
 
         $this->assertTrue(Player::validateName("Firstname"));
-        $this->assertTrue(Player::validateName("F"));
-        $this->assertFalse(Player::validateName("FirstName"));
-        $this->assertFalse(Player::validateName("firstname"));
+        $this->assertTrue(Player::validateName("Ährenfelß"));
+        $this->assertFalse(Player::validateName("FirstName"));        $this->assertFalse(Player::validateName("firstname"));
         $this->assertFalse(Player::validateName("123"));
         $this->assertFalse(Player::validateName(123));
         $this->assertFalse(Player::validateName(""));
