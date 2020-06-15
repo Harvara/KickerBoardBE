@@ -103,6 +103,8 @@ function getParameterIndex(){
         }else{
             returnError("Invalid Parameter or Player not found");
         }
+    }elseif (sizeof($_GET)!=0){
+        returnErrorCode("Unknown Parameter");
     }
     return false;
 }
