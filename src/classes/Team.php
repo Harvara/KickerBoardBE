@@ -17,7 +17,7 @@ class Team
 
     public function setScore($score){
         if (is_numeric($score)){
-            $this->score= int($score);
+            $this->score= (int) $score;
         }
     }
 

@@ -14,7 +14,6 @@ class Match
 
     public static function withDBID($dbID){
         return self::createMatchFromDBID($dbID);
-
     }
 
     public static function withTeams($teamA, $teamB){
@@ -65,6 +64,10 @@ class Match
         }
     }
 
+    public function getMatchDataAsJson(){
+        return json_encode(get_object_vars($this));
+    }
+
     private  function  createTeamFromPlayerObjects($playerA, $playerB){
         return  new Team($playerA, $playerB);
     }
@@ -88,14 +91,14 @@ class Match
     }
 
     private function createMatchFromDBID($dbID){
-        $pdo = $this->createDataBaseConnection();
-        $statement = $this->createPDOSelectStatement($pdo, $dbID);
+        $pdo = self::createDataBaseConnection();
+        $statement = self::createPDOSelectStatement($pdo, $dbID);
         $statement->execute();
         $dbContent = $statement->fetch(PDO::FETCH_ASSOC);
-        if (sizeof($dbContent)==1){
-            return  $this->createMatchFromDBContent($dbContent);
-        }else{
+        if (sizeof($dbContent)==0){
             return null;
+        }else{
+            return  self::createMatchFromDBContent($dbContent);
         }
     }
 
@@ -114,13 +117,14 @@ class Match
 
 
     private function createMatchFromDBContent($dbContent){
-        $teamA = $this->createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
-        $teamB = $this->createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
+        $teamA = self::createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
+        $teamB = self::createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
         $teamA->setScore($dbContent["TeamAScore"]);
         $teamB->setScore($dbContent["TeamBScore"]);
         $match = Match::withTeams($teamA, $teamB);
         $match->playDate = $dbContent["PlayDate"];
         return $match;
     }
+
 
 }
