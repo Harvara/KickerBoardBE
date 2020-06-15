@@ -32,9 +32,19 @@ foreach ($cityList as $city){
     array_push($citiesAsJson, json_decode($city->getCityDataAsJson()));
 }
 
-//var_dump($citiesAsJson);
 
 echo json_encode($citiesAsJson);
+
+
+function getAllCities(){
+    $cityList = [];
+    $cityIDs = getAllCityIDsFromDB();
+    foreach ($cityIDs as $cityItem){
+        $city = City::withID($cityItem["ID"]);
+        array_push($cityList, $city);
+    }
+    return $cityList;
+}
 
 
 function getCityByID(){
@@ -77,10 +87,20 @@ function getParameterIndex(){
         }else{
             dieWithError("Invalid Parameter");
         }
+    }elseif (sizeof($_GET)!=0){
+        dieWithError("Unknown Parameter");
     }
     return false;
 }
 
+
+function getAllCityIDsFromDB(){
+    $pdo = getDBConnection();
+    $sql = "Select ID from Cities";
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
 
 function validateName(){
     $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
@@ -90,4 +110,11 @@ function validateName(){
 function validateID(){
     $regex = "/^\d+$/";
     return  preg_match($regex,$_GET["id"]);
+}
+
+
+function getDBConnection(){
+    $pdo = new DatabaseConnection();
+    $pdo = $pdo->create();
+    return $pdo;
 }
