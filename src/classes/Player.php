@@ -48,10 +48,10 @@ class Player
         if ($regexOk){
             $playerData = self::getPlayerDataFromDB($name, "Playername");
             if (!$playerData){
-                return true;
+                return false;
             }
             else{
-                return  false;
+                return  true;
             }
         }
         return false;
@@ -69,7 +69,7 @@ class Player
     private function getPlayerDataFromDB($value, $attribute){
         $pdo = new DatabaseConnection();
         $pdo = $pdo->create();
-        $statement = $this->createPDOStatement($value, $attribute, $pdo);
+        $statement = self::createPDOStatement($value, $attribute, $pdo);
         $statement->execute();
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($result)===1) $result=$result[0];

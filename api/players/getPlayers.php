@@ -95,13 +95,13 @@ function getParameterIndex(){
         if (validateID()){
             return "id";
         }else{
-            dieWithError("InvalidParameter");
+            dieWithError("Invalid Parameter or Player not found");
         }
     }elseif (isset($_GET["name"])){
         if (Player::validatePlayerName($_GET["name"])){
             return "name";
         }else{
-            dieWithError("Invalid Parameter");
+            returnError("Invalid Parameter or Player not found");
         }
     }
     return false;
@@ -116,5 +116,5 @@ function validateID(){
 
 function returnError($message){
     http_response_code(400);
-    echo json_encode(["Error"=>$message]);
+    die(json_encode(["Error"=>$message]));
 }
