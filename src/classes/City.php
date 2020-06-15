@@ -25,7 +25,7 @@ class City
         $instance = new self();
         $dbContent = $instance->getCityFromDB($cityName, "Name");
         if (sizeof($dbContent) != 1){
-            return false;
+            return null;
         }
         $members = $instance->createMembersFromDBContent($dbContent[0]);
         $instance->fill($members);
@@ -97,5 +97,9 @@ class City
 
     public function getDBID(){
         return $this->dbID;
+    }
+
+    public function getCityName(){
+        return $this->cityName;
     }
 }
