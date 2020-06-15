@@ -95,7 +95,7 @@ function getParameterIndex(){
         if (validateID()){
             return "id";
         }else{
-            dieWithError("Invalid Parameter or Player not found");
+            returnErrorCode("Invalid Parameter or Player not found");
         }
     }elseif (isset($_GET["name"])){
         if (Player::validatePlayerName($_GET["name"])){

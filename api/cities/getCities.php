@@ -62,7 +62,7 @@ function getCityByName(){
 }
 
 
-function dieWithError($message){
+function returnErrorCode($message){
     http_response_code(400);
     $json = array(
         "Error"=>$message
@@ -79,16 +79,16 @@ function getParameterIndex(){
         if (validateID()){
             return "id";
         }else{
-            dieWithError("InvalidParameter");
+            returnErrorCode("InvalidParameter");
         }
     }elseif (isset($_GET["name"])){
         if (validateName()){
             return "name";
         }else{
-            dieWithError("Invalid Parameter");
+            returnErrorCode("Invalid Parameter");
         }
     }elseif (sizeof($_GET)!=0){
-        dieWithError("Unknown Parameter");
+        returnErrorCode("Unknown Parameter");
     }
     return false;
 }
