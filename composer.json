@@ -10,6 +10,8 @@
             "src/classes/Player.php",
             "src/classes/Test.php",
             "src/classes/Test2.php",
+            "src/Classes/Match.php",
+            "src/Classes/Team.php",
             "config/DatabaseConnection.php",
             "config/Settings.php"
         ]
