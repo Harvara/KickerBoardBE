@@ -40,5 +40,8 @@ class Team
     }
 
 
+    public function getTeamDataAsJson(){
+        return json_encode(get_object_vars($this));
+    }
 
 }

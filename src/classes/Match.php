@@ -65,7 +65,16 @@ class Match
     }
 
     public function getMatchDataAsJson(){
-        return json_encode(get_object_vars($this));
+        $teamA = $this->teamA->getTeamDataAsJson();
+        $teamB = $this->teamB->getTeamDataAsJson();
+        $teamA = json_decode($teamA);
+        $teamB = json_decode($teamB);
+        $match = json_encode(get_object_vars($this));
+        $match = json_decode($match, true);
+        $match["teamA"] = $teamA;
+        $match["teamB"] = $teamB;
+        $match = json_encode($match);
+        return $match;
     }
 
     private  function  createTeamFromPlayerObjects($playerA, $playerB){
