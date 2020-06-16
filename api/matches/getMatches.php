@@ -29,7 +29,7 @@ function getParameterIndex(){
         if (validateID()){
             return "id";
         }else{
-            returnErrorCode("Invalid Parameter or Match not found");
+            returnError("Invalid Parameter or Match not found");
         }
     }elseif (isset($_GET["date"])){
         if (validateDate($_GET["date"])){
@@ -38,7 +38,7 @@ function getParameterIndex(){
             returnError("Invalid Parameter or Match not found");
         }
     }elseif (sizeof($_GET)!=0){
-        returnErrorCode("Unknown Parameter");
+        returnError("Unknown Parameter");
     }
     return false;
 }
@@ -59,6 +59,17 @@ function getAllMatches(){
     $statement = preparePDOStatement($pdo);
     $statement->execute();
     return createMatchesFromDBIDs($statement->fetchAll(PDO::FETCH_ASSOC));
+}
+
+
+function matchRequestedByID(){
+    $match = Match::withDBID($_GET["id"]);
+    if ($match){
+        echo $match->getMatchDataAsJson();
+    }else{
+        returnError("No Match found");
+    }
+
 }
 
 

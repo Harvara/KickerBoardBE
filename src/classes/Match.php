@@ -103,11 +103,11 @@ class Match
         $pdo = self::createDataBaseConnection();
         $statement = self::createPDOSelectStatement($pdo, $dbID);
         $statement->execute();
-        $dbContent = $statement->fetch(PDO::FETCH_ASSOC);
+        $dbContent = $statement->fetchAll(PDO::FETCH_ASSOC);
         if (sizeof($dbContent)==0){
             return null;
         }else{
-            return  self::createMatchFromDBContent($dbContent);
+            return  self::createMatchFromDBContent($dbContent[0]);
         }
     }
 
