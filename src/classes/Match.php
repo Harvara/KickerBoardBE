@@ -18,8 +18,8 @@ class Match
 
     public static function withTeams($teamA, $teamB){
         $instance = new self();
-        $instance->$teamA = $teamA;
-        $instance->$teamB = $teamB;
+        $instance->teamA = $teamA;
+        $instance->teamB = $teamB;
         return $instance;
     }
 
