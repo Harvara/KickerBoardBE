@@ -127,7 +127,7 @@ class Match
 
     private function createMatchFromDBContent($dbContent){
         $teamA = self::createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
-        $teamB = self::createTeamFromPlayerIDs($dbContent["TeamAPlayerA"], $dbContent["TeamAPlayerB"]);
+        $teamB = self::createTeamFromPlayerIDs($dbContent["TeamBPlayerA"], $dbContent["TeamBPlayerB"]);
         $teamA->setScore($dbContent["TeamAScore"]);
         $teamB->setScore($dbContent["TeamBScore"]);
         $match = Match::withTeams($teamA, $teamB);

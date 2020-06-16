@@ -47,7 +47,6 @@ class Team
             "Score"=>$this->score
         );
         return json_encode($data);
-        //return json_encode(get_object_vars($this));
     }
 
 }
