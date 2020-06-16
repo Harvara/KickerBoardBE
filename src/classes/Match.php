@@ -132,6 +132,7 @@ class Match
         $teamB->setScore($dbContent["TeamBScore"]);
         $match = Match::withTeams($teamA, $teamB);
         $match->playDate = $dbContent["PlayDate"];
+        $match->dbID=$dbContent["ID"];
         return $match;
     }
 
