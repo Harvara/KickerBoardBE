@@ -46,11 +46,7 @@ function getParameterIndex(){
 
 function allMatchesRequested(){
     $matchList = getAllMatches();
-    $matchesAsJson =  [];
-    foreach ($matchList as $match){
-        array_push($matchesAsJson, json_decode($match->getMatchDataAsJson()));
-    }
-    echo json_encode($matchesAsJson);
+    echoMatchesAsJson($matchList);
 }
 
 
@@ -72,6 +68,18 @@ function matchRequestedByID(){
 
 }
 
+function matchesRequestedByDate(){
+    $date = createDate($_GET["date"]);
+    $matchList = getAllMatchesOnDate($date);
+    echoMatchesAsJson($matchList);
+}
+
+function getAllMatchesOnDate($date){
+    $pdo = getDatabaseConnection();
+    $statement = preparePDOStatement($pdo, "PlayDate", $date);
+    $statement->execute();
+    return createMatchesFromDBIDs($statement->fetchAll(PDO::FETCH_ASSOC));
+}
 
 function createMatchesFromDBIDs($dbContent){
     $matches = [];
@@ -98,18 +106,28 @@ function preparePDOStatement($pdo, $attribute = false, $value = false){
     return $statement;
 }
 
+function echoMatchesAsJson($matchList){
+    $matchesAsJson =  [];
+    foreach ($matchList as $match){
+        array_push($matchesAsJson, json_decode($match->getMatchDataAsJson()));
+    }
+    echo json_encode($matchesAsJson);
+}
+
+
+
 //Date given in Format DDMMYYYY
 function createDate($dateString){
-    $dayPart = int(substr($dateString, 0, 2));
-    $monthPart = int(substr($dateString, 2, 2));
-    $yearPart = int(substr($dateString, 4, 4));
+    $dayPart = (int) substr($dateString, 0, 2);
+    $monthPart = (int) substr($dateString, 2, 2);
+    $yearPart = (int) substr($dateString, 4, 4);
     if (
         ($dayPart > 0 && $dayPart<32) &&
-        ($monthPart > 0 && $dayPart<12) &&
-        ($yearPart > 1970 && $dayPart<2030)
+        ($monthPart > 0 && $monthPart<12) &&
+        ($yearPart > 1970 && $yearPart<2030)
     ){
         $unixTimestamp = strtotime($dayPart . "." . $monthPart . "." . $yearPart);
-        return date("d.m.Y", $unixTimestamp);
+        return date("Y-m-d", $unixTimestamp);
     }
     return null;
 }
