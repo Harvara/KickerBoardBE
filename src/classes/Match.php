@@ -16,10 +16,13 @@ class Match
         return self::createMatchFromDBID($dbID);
     }
 
-    public static function withTeams($teamA, $teamB){
+    public static function withTeams($teamA, $teamB, $playDate = false){
         $instance = new self();
         $instance->teamA = $teamA;
         $instance->teamB = $teamB;
+        if($playDate){
+            $instance->playDate=$playDate;
+        }
         return $instance;
     }
 

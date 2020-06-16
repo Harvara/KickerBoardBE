@@ -52,7 +52,7 @@ function allMatchesRequested(){
 
 function getAllMatches(){
     $pdo = getDatabaseConnection();
-    $statement = preparePDOStatement($pdo);
+    $statement = preparePDOSelectStatement($pdo);
     $statement->execute();
     return createMatchesFromDBIDs($statement->fetchAll(PDO::FETCH_ASSOC));
 }
@@ -76,7 +76,7 @@ function matchesRequestedByDate(){
 
 function getAllMatchesOnDate($date){
     $pdo = getDatabaseConnection();
-    $statement = preparePDOStatement($pdo, "PlayDate", $date);
+    $statement = preparePDOSelectStatement($pdo, "PlayDate", $date);
     $statement->execute();
     return createMatchesFromDBIDs($statement->fetchAll(PDO::FETCH_ASSOC));
 }

@@ -105,6 +105,14 @@ class Player
         return $player;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDbID()
+    {
+        return $this->dbID;
+    }
+
 
 
 
