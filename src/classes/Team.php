@@ -41,7 +41,13 @@ class Team
 
 
     public function getTeamDataAsJson(){
-        return json_encode(get_object_vars($this));
+        $data = array(
+            "PlayerA"=>$this->playerA->playerName,
+            "PlayerB"=>$this->playerB->playerName,
+            "Score"=>$this->score
+        );
+        return json_encode($data);
+        //return json_encode(get_object_vars($this));
     }
 
 }
