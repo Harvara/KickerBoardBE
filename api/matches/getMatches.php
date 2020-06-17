@@ -94,7 +94,7 @@ function getDatabaseConnection(){
     return $pdo->create();
 }
 
-function preparePDOStatement($pdo, $attribute = false, $value = false){
+function preparePDOSelectStatement($pdo, $attribute = false, $value = false){
     if(!$attribute){
         $sql = "select ID from Matches";
         $statement = $pdo->prepare($sql);

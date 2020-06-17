@@ -8,8 +8,6 @@ define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
 require ROOT_PATH . "vendor/autoload.php";
 
 
-
-
 if(validateParameters()){
     if(createDBEntry()){
         returnSuccess();

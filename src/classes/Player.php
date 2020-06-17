@@ -47,7 +47,7 @@ class Player
         $regexOk = preg_match($regex, $name);
         if ($regexOk){
             $playerData = self::getPlayerDataFromDB($name, "Playername");
-            if (!$playerData){
+            if (sizeof($playerData)!=0){
                 return false;
             }
             else{
