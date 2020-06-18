@@ -139,5 +139,17 @@ class Match
         return $match;
     }
 
+    public function setDbID($dbID)
+    {
+        $this->dbID = $dbID;
+    }
+
+    public function getDbID()
+    {
+        return $this->dbID;
+    }
+
+
+
 
 }
