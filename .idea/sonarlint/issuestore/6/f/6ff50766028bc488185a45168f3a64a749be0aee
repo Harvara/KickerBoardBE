@@ -1,0 +1,4 @@
+
+i	php:S1301"MReplace this "switch" statement with "if" statements to increase readability.(øí­×8ÚÁï»«.
+}	php:S1488Y"\Immediately return this expression instead of assigning it to the temporary variable "$pdo".(ÙõÅÜüÿÿÿÿ8ÚÁï»«.
+Rphp:S131"7Add a "case default" clause to this "switch" statement.(øí­×8ÚÁï»«.
