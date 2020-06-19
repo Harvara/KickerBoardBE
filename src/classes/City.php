@@ -10,13 +10,6 @@ class City
     }
 
 
-    public  static  function withDBContent($dbContent){
-        $instance = new self();
-        $members = $instance->createMembersFromDBContent($dbContent);
-        $instance->fill($members);
-        return $instance;
-    }
-
     public static function withID($dbid){
         $instance = new self();
         $dbContent = $instance->getCityFromDB($dbid, "ID");
@@ -28,18 +21,37 @@ class City
         return $instance;
     }
 
-
-    public  static function withName($cityName){
+    public  static function withDBName($cityName){
         $instance = new self();
         $dbContent = $instance->getCityFromDB($cityName, "Name");
         if (sizeof($dbContent) != 1){
-            return null;
+            return false;
         }
         $members = $instance->createMembersFromDBContent($dbContent[0]);
         $instance->fill($members);
         return $instance;
     }
 
+    public static  function createNewWithName($name){
+        $instance = new self();
+        $instance->createNewDBEntryByName($name);
+        return City::withDBName($name);
+    }
+
+    private  function createNewDBEntryByName($name){
+        $pdo = new DatabaseConnection();
+        $pdo = $pdo->create();
+        $sql = "Insert into Cities (Name) values (:name)";
+        $statement = $pdo->prepare($sql);
+        $statement->bindValue(":name", $name);
+        $statement->execute();
+    }
+
+
+    public static function validateName($name){
+            $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+            return preg_match($regex, $name);
+    }
 
     private function getCityFromDB($value,$attribute){
         $pdo = new DatabaseConnection();
@@ -65,15 +77,8 @@ class City
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
     private function createMembersFromDBContent($dbContent){
         $members = [];
-        $test = [
-            "test" => "abv",
-            "qwe" => "fjf"
-        ];
         $members["dbID"]=$dbContent["ID"];
         $members["cityName"]=$dbContent["Name"];
         return $members;
@@ -90,10 +95,7 @@ class City
     }
 
 
-    public function getCityName()
-    {
-        return $this->cityName;
+    public function getDBID(){
+        return $this->dbID;
     }
-
-
 }

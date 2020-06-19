@@ -10,8 +10,13 @@
             "src/classes/Player.php",
             "src/classes/Test.php",
             "src/classes/Test2.php",
+            "src/classes/Match.php",
+            "src/classes/Team.php",
             "config/DatabaseConnection.php",
             "config/Settings.php"
         ]
-    }
+    },
+  "require": {
+    "ext-json": "*"
+  }
 }

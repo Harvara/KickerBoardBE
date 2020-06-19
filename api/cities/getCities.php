@@ -32,9 +32,19 @@ foreach ($cityList as $city){
     array_push($citiesAsJson, json_decode($city->getCityDataAsJson()));
 }
 
-//var_dump($citiesAsJson);
 
 echo json_encode($citiesAsJson);
+
+
+function getAllCities(){
+    $cityList = [];
+    $cityIDs = getAllCityIDsFromDB();
+    foreach ($cityIDs as $cityItem){
+        $city = City::withID($cityItem["ID"]);
+        array_push($cityList, $city);
+    }
+    return $cityList;
+}
 
 
 function getCityByID(){
@@ -47,12 +57,12 @@ function getCityByID(){
 function getCityByName(){
     $cityList = [];
     $name = $_GET["name"];
-    array_push($cityList, City::withName($name));
+    array_push($cityList, City::withDBName($name));
     return $cityList;
 }
 
 
-function dieWithError($message){
+function returnErrorCode($message){
     http_response_code(400);
     $json = array(
         "Error"=>$message
@@ -69,18 +79,28 @@ function getParameterIndex(){
         if (validateID()){
             return "id";
         }else{
-            dieWithError("InvalidParameter");
+            returnErrorCode("InvalidParameter");
         }
     }elseif (isset($_GET["name"])){
         if (validateName()){
             return "name";
         }else{
-            dieWithError("Invalid Parameter");
+            returnErrorCode("Invalid Parameter");
         }
+    }elseif (sizeof($_GET)!=0){
+        returnErrorCode("Unknown Parameter");
     }
     return false;
 }
 
+
+function getAllCityIDsFromDB(){
+    $pdo = getDBConnection();
+    $sql = "Select ID from Cities";
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
 
 function validateName(){
     $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
@@ -90,4 +110,11 @@ function validateName(){
 function validateID(){
     $regex = "/^\d+$/";
     return  preg_match($regex,$_GET["id"]);
+}
+
+
+function getDBConnection(){
+    $pdo = new DatabaseConnection();
+    $pdo = $pdo->create();
+    return $pdo;
 }

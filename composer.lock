@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "88774fdd1ac1dc540ba45e1df6df332e",
+    "content-hash": "ee1986b9b6b7c9ec228596cf5852db8b",
     "packages": [],
     "packages-dev": [
         {
@@ -68,16 +68,16 @@
         },
         {
             "name": "codeception/codeception",
-            "version": "4.1.5",
+            "version": "4.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/Codeception.git",
-                "reference": "24f2345329b1059f1208f65581fc632a4a6e5a55"
+                "reference": "5515b6a6c6f1e1c909aaff2e5f3a15c177dfd1a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/24f2345329b1059f1208f65581fc632a4a6e5a55",
-                "reference": "24f2345329b1059f1208f65581fc632a4a6e5a55",
+                "url": "https://api.github.com/repos/Codeception/Codeception/zipball/5515b6a6c6f1e1c909aaff2e5f3a15c177dfd1a9",
+                "reference": "5515b6a6c6f1e1c909aaff2e5f3a15c177dfd1a9",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                 "functional testing",
                 "unit testing"
             ],
-            "time": "2020-05-24T13:58:47+00:00"
+            "time": "2020-06-07T16:31:51+00:00"
         },
         {
             "name": "codeception/lib-asserts",
@@ -3411,6 +3411,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-json": "*"
+    },
     "platform-dev": []
 }

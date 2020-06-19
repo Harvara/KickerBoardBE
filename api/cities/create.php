@@ -10,36 +10,49 @@ require ROOT_PATH . "vendor/autoload.php";
 
 
 
-if(validateName() && checkIfNotUsed()){
-    $id = getNewDBEntry();
-    if (is_int($id)){
-        returnAnswer($id);
-    }else{
-        returnError();
+
+if(
+    validateName() &&
+    checkIfNotUsed()){
+        $city = getNewDBEntry();
+        if(!$city){
+            returnError("Could not create city");
+        }else{
+            returnCityCreated($city);
+        }
+}else{
+    returnError("Invalid Parameter");
+}
+
+
+
+
+function checkIfNotUsed(){
+    if(!City::withDBName($_GET["name"])){
+        return true;
+    } else{
+        return false;
     }
 }
 
-
-
-private function validateInput(){
-    return true;
+function getNewDBEntry(){
+    if (City::createNewWithName($_GET["name"])){
+        return City::withDBName($_GET["name"]);
+    }
+    return false;
 }
 
 
-private function checkIfNotUsed(){
-
+function returnCityCreated($city){
+    echo $city->getCityDataAsJson();
 }
 
-private function getNewDBEntry(){
-    $id = 0;
-    return $id;
+function returnError($message){
+    http_response_code(400);
+    echo json_encode(["Error"=>$message]);
 }
 
 
-private function returnAnswer($id){
-
-}
-
-private function returnError(){
-
+function validateName(){
+    return City::validateName($_GET["name"]);
 }
