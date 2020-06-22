@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domain;
+namespace Domain\Team;
 
 
 class Team implements TeamInterface

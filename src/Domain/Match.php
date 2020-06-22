@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domain;
+namespace Domain\Match;
 
 
 class Match implements MatchInterface

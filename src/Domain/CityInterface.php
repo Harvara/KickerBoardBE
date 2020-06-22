@@ -1,5 +1,5 @@
 <?php
-namespace Domain;
+namespace Domain\CityInterface;
 
 interface CityInterface
 {
