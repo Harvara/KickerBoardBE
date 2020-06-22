@@ -1,0 +1,7 @@
+
+f	php:S11269"EReplace this "if-then-else" statement by a single "return" statement.(š“§ûÿÿÿÿ8ò•‡¼«.
+h	php:S1117h"GRename "$city" which has the same name as the field declared at line 9.(àØ•¬ıÿÿÿÿ8ò•‡¼«.
+€	php:S1488m"_Immediately return this expression instead of assigning it to the temporary variable "$player".(ëÊ¸ıÿÿÿÿ8ò•‡¼«.
+c	php:S1117E"GRename "$city" which has the same name as the field declared at line 9.(âÒéº8ò•‡¼«.
+f	php:S1192"KDefine a constant instead of duplicating this literal "Playername" 3 times.(¿›İ48ò•‡¼«.
+Kphp:S121P"0Add curly braces around the nested statement(s).(Ù•ÃÇ8ò•‡¼«.
