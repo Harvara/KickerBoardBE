@@ -25,7 +25,7 @@ class City
         $instance = new self();
         $dbContent = $instance->getCityFromDB($cityName, "Name");
         if (sizeof($dbContent) != 1){
-            return false;
+            return null;
         }
         $members = $instance->createMembersFromDBContent($dbContent[0]);
         $instance->fill($members);
@@ -49,8 +49,12 @@ class City
 
 
     public static function validateName($name){
-            $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
-            return preg_match($regex, $name);
+        $regex = "/^[A-ZÖÄÜ][a-zöäüß]*$/";
+        $regexOk = preg_match($regex, $name);
+        if ($regexOk && strlen($name)>0){
+            return true;
+        }
+        return false;
     }
 
     private function getCityFromDB($value,$attribute){
@@ -97,5 +101,9 @@ class City
 
     public function getDBID(){
         return $this->dbID;
+    }
+
+    public function getCityName(){
+        return $this->cityName;
     }
 }
