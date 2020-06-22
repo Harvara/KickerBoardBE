@@ -1,21 +1,13 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+use Domain\Player\Player;
 
-define("ROOT_PATH", '/home/henry/Documents/Intern/KickerBoardBE/');
-require ROOT_PATH . "vendor/autoload.php";
+require_once "vendor/autoload.php";
 
 
-
-$player = Player::createDefaultPlayer();
-
-
-echo $player->getPlayerDataAsJson();
+echo "hello";
 
 
+$player = new Player();
 
-/*
- * $player->fillPlayerFromDBID(1);
-echo $player->getPlayerDataAsJson();
-*/
+$player->createPlayer();

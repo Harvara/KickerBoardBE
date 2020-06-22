@@ -4,10 +4,12 @@
 namespace Domain\Player;
 
 
+use Domain\PlayerInterface\PlayerInterface;
+
 class Player implements PlayerInterface
 {
 
-    public function createPlayer($player)
+    public function createPlayer()
     {
         // TODO: Implement createPlayer() method.
     }
