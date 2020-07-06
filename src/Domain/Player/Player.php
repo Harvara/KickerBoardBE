@@ -4,21 +4,100 @@
 namespace Domain\Player;
 
 
+use Domain\City\City;
+
 class Player implements PlayerInterface
 {
 
-    public function createPlayer($player)
+    /**
+     * @var string
+     */
+    private $playername;
+
+    /**
+     * @var string
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     */
+    private $lastname;
+
+    /**
+     * @var City
+     */
+    private $city;
+
+    /**
+     * @var int
+     */
+    private $databaseID;
+
+
+    /**
+     * @return string
+     */
+    public function getPlayername(): string
     {
-        // TODO: Implement createPlayer() method.
+        return $this->playername;
     }
 
-    public function deletePlayer($player)
+    /**
+     * @param string $playername
+     */
+    public function setPlayername(string $playername): void
     {
-        // TODO: Implement deletePlayer() method.
+        $this->playername = $playername;
     }
 
-    public function updatePlayer($player)
+    /**
+     * @return string
+     */
+    public function getFirstname(): string
     {
-        // TODO: Implement updatePlayer() method.
+        return $this->firstname;
     }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname(string $firstname): void
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname(): string
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * @return City
+     */
+    public function getCity(): City
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param City $city
+     */
+    public function setCity(City $city): void
+    {
+        $this->city = $city;
+    }
+
+
 }

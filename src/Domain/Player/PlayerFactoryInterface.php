@@ -8,6 +8,6 @@ use Domain\Player\Player;
 
 interface PlayerFactoryInterface
 {
-    public function create(string $playerName):Player;
-    public function createWithDatabaseID(int $databaseID):Player;
+    public static function create(string $playerName):Player;
+    public static function createWithDatabaseID(int $databaseID):Player;
 }

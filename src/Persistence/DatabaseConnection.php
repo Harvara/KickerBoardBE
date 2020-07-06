@@ -16,17 +16,17 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $this->dbmcConnection = $dbmsconnection;
     }
 
-    public function executeSelectStatement(string $statement): array
+    public function executeSelectStatement(string $statement, array $values): array
     {
         // TODO: Implement executeSelectStatement() method.
     }
 
-    public function executeUpdateStatement(string $statement): bool
+    public function executeUpdateStatement(string $statement, array $values): bool
     {
         // TODO: Implement executeUpdateStatement() method.
     }
 
-    public function executeInsertStatement(string $statement): bool
+    public function executeInsertStatement(string $statement, array $values): bool
     {
         // TODO: Implement executeInsertStatement() method.
     }

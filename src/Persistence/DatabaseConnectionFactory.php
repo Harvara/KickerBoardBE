@@ -9,12 +9,12 @@ class DatabaseConnectionFactory implements DatabaseConnectionFactoryInterface
     const DBMS = ["mysql"];
 
 
-    public function create(string $dbms): DatabaseConnection
+    public static function create(string $dbms): DatabaseConnection
     {
         if (!in_array($dbms, self::DBMS)){
             die("No DBMS Error");
         }
-        return $this->buildConnectionWithDBMS($dbms);
+        return self::buildConnectionWithDBMS($dbms);
 
     }
 

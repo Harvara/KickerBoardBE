@@ -6,5 +6,5 @@ namespace Kickerboard\Persistence;
 
 interface DatabaseConnectionFactoryInterface
 {
-    public function create(string $dbms):DatabaseConnection;
+    public static function  create(string $dbms):DatabaseConnection;
 }

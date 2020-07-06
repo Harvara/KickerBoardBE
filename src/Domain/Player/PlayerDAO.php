@@ -5,13 +5,17 @@ namespace Kickerboard\Domain\Player;
 
 
 use Domain\Player\Player;
+use Kickerboard\Persistence\DatabaseConnection;
+use Kickerboard\Persistence\DatabaseConnectionFactory;
+use phpDocumentor\Reflection\Types\This;
 
 class PlayerDAO implements PlayerDAOInterface
 {
 
-    public function get($id): array
+    public function get(int $databaseIndex): array
     {
-        // TODO: Implement get() method.
+        $databaseConnection = DatabaseConnectionFactory::create("mysql");
+        return $this->getPlayerFromDatabase($databaseConnection, $databaseIndex);
     }
 
     public function update(Player $player)
@@ -27,5 +31,14 @@ class PlayerDAO implements PlayerDAOInterface
     public function create(Player $player)
     {
         // TODO: Implement create() method.
+    }
+
+
+    private function getPlayerFromDatabase(DatabaseConnection $databaseConnection, int $databaseIndex):array {
+        $sql = "select * from Players where ID = :id";
+        $values = array(
+            ":id"=>$databaseIndex
+        );
+        return $databaseConnection->executeSelectStatement($sql, $values );
     }
 }

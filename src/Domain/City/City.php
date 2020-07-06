@@ -4,18 +4,47 @@ namespace Domain\City;
 
 class City implements CityInterface
 {
-    public function createCity(\DTO\City\City $city): CityReponse
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var int
+     */
+    private $databaseID;
+
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
-        // ... create city with xyz
+        return $this->name;
     }
 
-    public function removeCity(\DTO\City\City $city): CityReponse
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
     {
-        // TODO: Implement removeCity() method.
+        $this->name = $name;
     }
 
-    public function updateCity(\DTO\City\City $city): CityReponse
+    /**
+     * @return int
+     */
+    public function getDatabaseID(): int
     {
-        // TODO: Implement updateCity() method.
+        return $this->databaseID;
     }
+
+    /**
+     * @param int $databaseID
+     */
+    public function setDatabaseID(int $databaseID): void
+    {
+        $this->databaseID = $databaseID;
+    }
+
+
 }
