@@ -65,6 +65,7 @@ class ComposerStaticInit11f4ed140d61e45400f1326016961491
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
+            'Persistence\\' => 12,
         ),
         'G' => 
         array (
@@ -207,6 +208,10 @@ class ComposerStaticInit11f4ed140d61e45400f1326016961491
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'Persistence\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src/Persistence',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (

@@ -1,10 +1,9 @@
 <?php
 
 
-namespace Kickerboard\Domain\Player;
+namespace Domain\PLayer;
 
 
-use Domain\Player\Player;
 
 interface PlayerDAOInterface
 {

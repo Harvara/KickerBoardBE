@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Kickerboard\Domain\Player;
+namespace Domain\Player;
 
 
-use Domain\Player\Player;
 use Kickerboard\Domain\City\CityFactory;
+use Kickerboard\Domain\Player\PlayerFactoryInterface;
 
 class PlayerFactory implements PlayerFactoryInterface
 {

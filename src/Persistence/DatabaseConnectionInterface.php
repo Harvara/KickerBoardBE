@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kickerboard\Persistence;
+namespace Persistence;
 
 
 interface DatabaseConnectionInterface

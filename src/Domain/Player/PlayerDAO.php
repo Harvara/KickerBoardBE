@@ -1,13 +1,12 @@
 <?php
 
 
-namespace Kickerboard\Domain\Player;
+namespace Domain\Player;
 
 
-use Domain\Player\Player;
-use Kickerboard\Persistence\DatabaseConnection;
-use Kickerboard\Persistence\DatabaseConnectionFactory;
-use phpDocumentor\Reflection\Types\This;
+
+use Persistence\DatabaseConnection;
+use Persistence\DatabaseConnectionFactory;
 
 class PlayerDAO implements PlayerDAOInterface
 {

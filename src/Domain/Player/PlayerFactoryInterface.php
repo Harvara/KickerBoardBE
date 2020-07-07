@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Kickerboard\Domain\Player;
+namespace Domain\Player;
 
 
 use Domain\Player\Player;

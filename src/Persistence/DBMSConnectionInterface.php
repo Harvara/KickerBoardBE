@@ -1,10 +1,8 @@
 <?php
 
 
-namespace Kickerboard\Persistence;
+namespace Persistence;
 
-
-use _generated\AcceptanceTesterActions;
 
 interface DBMSConnectionInterface
 {
