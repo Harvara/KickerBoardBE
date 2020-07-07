@@ -4,8 +4,8 @@
 namespace Domain\Player;
 
 
-use Kickerboard\Domain\City\CityFactory;
-use Kickerboard\Domain\Player\PlayerFactoryInterface;
+use Domain\City\CityFactory;
+
 
 class PlayerFactory implements PlayerFactoryInterface
 {
@@ -19,11 +19,14 @@ class PlayerFactory implements PlayerFactoryInterface
 
     public static function create(string $playerName): Player
     {
-        // TODO: Implement create() method.
+        $player = new Player();
+        $player->setPlayername($playerName);
+        return $player;
     }
 
-    private function createPlayerFromArray(array $data){
-        $player = new Player($data["Playername"]);
+    private static function createPlayerFromArray(array $data){
+        $player = new Player();
+        $player->setPlayername($data["Playername"]);
         $player->setLastname($data["Lastname"]);
         $player->setFirstname($data["Firstname"]);
         $city = CityFactory::createWithDatabaseID($data["CityID"]);

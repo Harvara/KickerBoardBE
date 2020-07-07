@@ -5,7 +5,7 @@ namespace Domain\Player;
 
 
 use Domain\City\City;
-use Domain\Player\PlayerInterface\PlayerInterface;
+
 
 
 class Player implements PlayerInterface
