@@ -21,7 +21,7 @@ class DatabaseConnectionFactory implements DatabaseConnectionFactoryInterface
     private static function buildConnectionWithDBMS($dbms): DatabaseConnection{
         switch ($dbms){
             case "mysql":
-                return new DatabaseConnection(new MysqlConnection());
+                return new DatabaseConnection(new MysqlConnection(DatabaseSettings::getConnectionConfig()));
         }
     }
 }

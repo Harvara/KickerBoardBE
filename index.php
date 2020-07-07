@@ -19,7 +19,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 
 $app->get('/Player', function (Request $request, Response $response, $args) {
-    $player = PlayerFactory::create("Henry");
+    $player = PlayerFactory::createWithDatabaseID(1);
     $response->getBody()->write("Hello Player!");
     return $response;
 });

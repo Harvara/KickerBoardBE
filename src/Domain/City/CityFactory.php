@@ -4,6 +4,8 @@
 namespace Domain\City;
 
 
+
+
 class CityFactory
 {
     public static function create(string $cityName):City{
@@ -16,7 +18,8 @@ class CityFactory
     }
 
     private static function createCityFromArray(array $data){
-        $city = new City($data["Name"]);
+        $city = new City();
+        $city->setName($data["Name"]);
         $city->setDatabaseID($data["ID"]);
         return $city;
     }

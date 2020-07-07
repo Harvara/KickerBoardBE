@@ -1,12 +1,11 @@
 <?php
 
 
-namespace Kickerboard\Domain\City;
+namespace Domain\City;
 
 
-use Domain\City\City;
-use Kickerboard\Persistence\DatabaseConnection;
-use Kickerboard\Persistence\DatabaseConnectionFactory;
+use Persistence\DatabaseConnection;
+use Persistence\DatabaseConnectionFactory;
 
 class CityDAO implements CityDAOInterface
 {

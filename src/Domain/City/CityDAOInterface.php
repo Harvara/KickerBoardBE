@@ -1,10 +1,7 @@
 <?php
 
 
-namespace Kickerboard\Domain\City;
-
-
-use Domain\City\City;
+namespace Domain\City;
 
 interface CityDAOInterface
 {
