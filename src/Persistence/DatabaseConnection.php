@@ -16,9 +16,13 @@ class DatabaseConnection implements DatabaseConnectionInterface
         $this->dbmcConnection = $dbmsconnection;
     }
 
-    public function executeSelectStatement(string $statement, array $values): array
+    public function executeSelectStatement(string $sql, array $values): array
     {
-        // TODO: Implement executeSelectStatement() method.
+        if (! $this->dbmcConnection){
+            die("No Connection set");
+        }
+        $this->dbmcConnection->prepare($sql);
+        return $this->dbmcConnection->execute($values);
     }
 
     public function executeUpdateStatement(string $statement, array $values): bool

@@ -15,7 +15,7 @@ class PlayerDAO implements PlayerDAOInterface
     public function get(int $databaseIndex): array
     {
         $databaseConnection = DatabaseConnectionFactory::create("mysql");
-        return $this->getPlayerFromDatabase($databaseConnection, $databaseIndex);
+        return $this->getPlayerDataFromDatabase($databaseConnection, $databaseIndex);
     }
 
     public function update(Player $player)
@@ -34,7 +34,7 @@ class PlayerDAO implements PlayerDAOInterface
     }
 
 
-    private function getPlayerFromDatabase(DatabaseConnection $databaseConnection, int $databaseIndex):array {
+    private function getPlayerDataFromDatabase(DatabaseConnection $databaseConnection, int $databaseIndex):array {
         $sql = "select * from Players where ID = :id";
         $values = array(
             ":id"=>$databaseIndex

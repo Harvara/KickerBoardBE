@@ -5,6 +5,7 @@ namespace Kickerboard\Domain\Player;
 
 
 use Domain\Player\Player;
+use Kickerboard\Domain\City\CityFactory;
 
 class PlayerFactory implements PlayerFactoryInterface
 {
@@ -25,6 +26,8 @@ class PlayerFactory implements PlayerFactoryInterface
         $player = new Player($data["Playername"]);
         $player->setLastname($data["Lastname"]);
         $player->setFirstname($data["Firstname"]);
-        $player->setCity();
+        $city = CityFactory::createWithDatabaseID($data["CityID"]);
+        $player->setCity($city);
+        return $player;
     }
 }
