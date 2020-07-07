@@ -9,8 +9,8 @@ class DatabaseSettings implements DatabaseSettingsInterface
 
     private static $host = "localhost";
     private static $database = "Kickerboard";
-    private static $user = "user";
-    private static $password = "password";
+    private static $user = "henry";
+    private static $password = "P@ssword";
 
 
     public static function getConnectionConfig(): array
