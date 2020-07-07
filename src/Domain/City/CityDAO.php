@@ -10,10 +10,11 @@ use Persistence\DatabaseConnectionFactory;
 class CityDAO implements CityDAOInterface
 {
 
-    public function get($databaseID): array
+    public function get(int $databaseID): array
     {
+
         $databaseConnection = DatabaseConnectionFactory::create("mysql");
-        return $this->$this->getCityDataFromDatabase($databaseConnection, $databaseID);
+        return $this->getCityDataFromDatabase($databaseConnection, $databaseID);
     }
 
     public function update(City $City): bool
@@ -21,7 +22,7 @@ class CityDAO implements CityDAOInterface
         // TODO: Implement update() method.
     }
 
-    public function delete($databaseID): bool
+    public function delete(int $databaseID): bool
     {
         // TODO: Implement delete() method.
     }

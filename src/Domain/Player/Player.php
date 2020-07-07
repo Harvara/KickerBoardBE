@@ -102,4 +102,8 @@ class Player implements PlayerInterface
     }
 
 
+    public function printObjectAsJson(): string
+    {
+
+    }
 }

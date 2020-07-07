@@ -20,6 +20,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 $app->get('/Player', function (Request $request, Response $response, $args) {
     $player = PlayerFactory::createWithDatabaseID(1);
+    echo $player->printObjectAsJson();
     $response->getBody()->write("Hello Player!");
     return $response;
 });
@@ -28,18 +29,3 @@ $app->run();
 
 
 
-
-/*
-use Domain\Player\Player;
-
-require_once "vendor/autoload.php";
-
-
-echo "hello";
-
-
-$player = new Player();
-
-$player->createPlayer();
-
-*/

@@ -4,7 +4,9 @@
 namespace Domain\Player;
 
 
-interface PlayerInterface
+use Domain\DefaultObjectInterface;
+
+interface PlayerInterface extends DefaultObjectInterface
 {
 
 }

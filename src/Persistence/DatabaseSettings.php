@@ -17,7 +17,7 @@ class DatabaseSettings implements DatabaseSettingsInterface
     {
         return array(
             "host"=> self::$host,
-            "databse"=>self::$database,
+            "database"=>self::$database,
             "user"=>self::$user,
             "password"=>self::$password
         );
