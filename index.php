@@ -20,7 +20,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
 
 $app->get('/Player', function (Request $request, Response $response, $args) {
     $player = PlayerFactory::createWithDatabaseID(1);
-    echo $player->printObjectAsJson();
+    echo $player->getObjectAsJson();
     $response->getBody()->write("Hello Player!");
     return $response;
 });

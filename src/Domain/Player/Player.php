@@ -36,6 +36,22 @@ class Player implements PlayerInterface
      */
     private $databaseID;
 
+    /**
+     * @return int
+     */
+    public function getDatabaseID(): int
+    {
+        return $this->databaseID;
+    }
+
+    /**
+     * @param int $databaseID
+     */
+    public function setDatabaseID(int $databaseID): void
+    {
+        $this->databaseID = $databaseID;
+    }
+
 
     /**
      * @return string
@@ -102,8 +118,11 @@ class Player implements PlayerInterface
     }
 
 
-    public function printObjectAsJson(): string
+    public function getObjectAsJson(): string
     {
-
+        $encodedPlayerData = json_encode(get_object_vars($this));
+        $decodedPlayerData = json_decode($encodedPlayerData, true);
+        if ($this->city){$decodedPlayerData["city"] = json_decode($this->city->getObjectAsJson());}
+        return json_encode($decodedPlayerData);
     }
 }

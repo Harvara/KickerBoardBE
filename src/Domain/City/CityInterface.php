@@ -1,7 +1,9 @@
 <?php
 namespace Domain\City;
 
-interface CityInterface
+use Domain\DefaultObjectInterface;
+
+interface CityInterface extends DefaultObjectInterface
 {
 
 }

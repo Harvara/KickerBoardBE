@@ -29,6 +29,7 @@ class PlayerFactory implements PlayerFactoryInterface
         $player->setPlayername($data["Playername"]);
         $player->setLastname($data["Lastname"]);
         $player->setFirstname($data["Firstname"]);
+        $player->setDatabaseID($data["ID"]);
         $city = CityFactory::createWithDatabaseID($data["CityID"]);
         $player->setCity($city);
         return $player;

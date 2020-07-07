@@ -47,4 +47,8 @@ class City implements CityInterface
     }
 
 
+    public function getObjectAsJson(): string
+    {
+        return json_encode(get_object_vars($this));
+    }
 }
