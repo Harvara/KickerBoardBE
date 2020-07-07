@@ -1,5 +1,7 @@
 <?php
-use Psr\Http\Message\ResponseInterface as Response;
+
+
+/*use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
@@ -13,3 +15,14 @@ $app->get('/', function (Request $request, Response $response, $args) {
 });
 
 $app->run();
+*/
+
+use Domain\Team\Team;
+
+require_once '../vendor/autoload.php';
+
+
+
+$test = new Team();
+
+echo "Hello World";
