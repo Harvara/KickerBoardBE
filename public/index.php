@@ -17,12 +17,9 @@ $app->get('/', function (Request $request, Response $response, $args) {
 $app->run();
 */
 
-use Domain\Team\Team;
 
 require_once '../vendor/autoload.php';
 
 
-
-$test = new Team();
 
 echo "Hello World";

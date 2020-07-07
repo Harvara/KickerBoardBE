@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Domain\PlayerInterface;
+namespace Domain\Player\PlayerInterface;
 
 
 interface PlayerInterface

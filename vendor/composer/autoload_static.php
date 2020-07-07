@@ -66,10 +66,6 @@ class ComposerStaticInit11f4ed140d61e45400f1326016961491
             'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
         ),
-        'K' => 
-        array (
-            'Kickerboard\\' => 12,
-        ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
@@ -211,10 +207,6 @@ class ComposerStaticInit11f4ed140d61e45400f1326016961491
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
-        ),
-        'Kickerboard\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
