@@ -28,12 +28,10 @@ class PlayerController implements \Domain\ControllerInterface
 
     public function getSingle(array $args, RequestDTO $requestDTO): Response
     {
-        echo "Call from PlayerController";
-        return $requestDTO->getResponse();
-        /*
-        $response = $requestDTO->getResponse();
-        $response->getBody()->write("Hello");
-        return $response;*/
+        $player = PlayerFactory::createWithDatabaseID($args["id"]);
+        $respone = $requestDTO->getResponse();
+        $respone->getBody()->write($player->getObjectAsJson());
+        return $respone;
     }
 
     public function getAll(array $args, RequestDTO $requestDTO): Response
@@ -47,8 +45,18 @@ class PlayerController implements \Domain\ControllerInterface
 
     private function switchModes($mode, RequestDTO $requestDTO):Response{
         $args = $requestDTO->getRequest()->getQueryParams();
+
+        switch ($mode){
+            case "getPlayer":
+                return $this->getSingle($args, $requestDTO);
+            default:
+                return $requestDTO->getResponse();
+        }
+
+        /*
         $response = call_user_func("getSingle", array($args, $requestDTO));
         return $requestDTO->getResponse();
+        */
     }
 
     private function unknownEndpointResponse(RequestDTO $requestDTO):Response{
