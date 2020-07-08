@@ -38,6 +38,22 @@ class PlayerDAO implements PlayerDAOInterface
         $values = array(
             ":id"=>$databaseIndex
         );
-        return $databaseConnection->executeSelectStatement($sql, $values );
+        $data = $databaseConnection->executeSelectStatement($sql, $values);
+        return $data[0];
+    }
+
+    public function getAllIDs(): array
+    {
+        $databaseConnection = DatabaseConnectionFactory::create("mysql");
+        $sql = "select ID from Players";
+        return $this->createArrayFromDBResult($databaseConnection->executeSelectStatement($sql, array()));
+    }
+
+    private function createArrayFromDBResult($data):array {
+        $idArray = [];
+        foreach ($data as $dbEntry){
+            array_push($idArray, $dbEntry["ID"]);
+        }
+        return $idArray;
     }
 }

@@ -20,7 +20,8 @@ $app->get('/', function (Request $request, Response $response, $args) {
 $app->get('/api/player/{mode}', function (Request $request, Response $response, $args) {
     $mode = $args["mode"];
     $requestData = new RequestDTO($response, $request);
-    return (new PlayerController())->indexAction($mode, $requestData);
+    $response = (new PlayerController())->indexAction($mode, $requestData);
+    return $response->withHeader("Content-type", "application/json");
 });
 
 function getSingle(){

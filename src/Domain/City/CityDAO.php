@@ -37,6 +37,7 @@ class CityDAO implements CityDAOInterface
         $values = array(
             ":id" => $databaseID
         );
-        return $databaseConnection->executeSelectStatement($sql, $values);
+        $data = $databaseConnection->executeSelectStatement($sql, $values);
+        return $data[0];
     }
 }

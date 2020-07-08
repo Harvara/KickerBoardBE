@@ -36,7 +36,17 @@ class PlayerController implements \Domain\ControllerInterface
 
     public function getAll(array $args, RequestDTO $requestDTO): Response
     {
-        // TODO: Implement getAll() method.
+        $playerArray = (new PlayerFacade())->getAllPlayers();
+        $playersAsJson = [];
+        foreach ($playerArray as $player){
+            /**
+             * @var Player $player
+             */
+            array_push($playersAsJson, json_decode($player->getObjectAsJson()));
+        }
+        $response = $requestDTO->getResponse();
+        $response->getBody()->write(json_encode($playersAsJson));
+        return  $response;
     }
 
     private function isValid($mode){
@@ -49,6 +59,8 @@ class PlayerController implements \Domain\ControllerInterface
         switch ($mode){
             case "getPlayer":
                 return $this->getSingle($args, $requestDTO);
+            case "getAll":
+                return $this->getAll($args, $requestDTO);
             default:
                 return $requestDTO->getResponse();
         }
