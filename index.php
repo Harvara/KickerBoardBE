@@ -24,7 +24,7 @@ $app->get('/api/player/{mode}', function (Request $request, Response $response, 
 });
 
 function getSingle(){
-    echo "hello2";
+    echo "Call from index.php";
 }
 
 $app->run();

@@ -28,7 +28,7 @@ class PlayerController implements \Domain\ControllerInterface
 
     public function getSingle(array $args, RequestDTO $requestDTO): Response
     {
-        echo "hi";
+        echo "Call from PlayerController";
         return $requestDTO->getResponse();
         /*
         $response = $requestDTO->getResponse();
@@ -47,10 +47,8 @@ class PlayerController implements \Domain\ControllerInterface
 
     private function switchModes($mode, RequestDTO $requestDTO):Response{
         $args = $requestDTO->getRequest()->getQueryParams();
-        $response = call_user_func(self::MODES[$mode], array($args, $requestDTO));
-        $response = $requestDTO->getResponse();
-        $response->getBody()->write("Hello");
-        return $response;
+        $response = call_user_func("getSingle", array($args, $requestDTO));
+        return $requestDTO->getResponse();
     }
 
     private function unknownEndpointResponse(RequestDTO $requestDTO):Response{
