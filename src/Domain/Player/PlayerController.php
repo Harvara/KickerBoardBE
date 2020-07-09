@@ -4,10 +4,11 @@
 namespace Domain\Player;
 
 
+use Domain\ControllerInterface;
 use Domain\Request\RequestDTO;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class PlayerController implements \Domain\ControllerInterface
+class PlayerController implements ControllerInterface
 {
 
     const MODES = array(
@@ -17,7 +18,7 @@ class PlayerController implements \Domain\ControllerInterface
 
     public function indexAction(string $mode, RequestDTO $requestDTO): Response
     {
-        if($this->isValidMode($mode)){
+        if ($this->isValidMode($mode)) {
             return $this->switchModes($mode, $requestDTO);
         }
         return $this->unknownEndpointResponse($requestDTO);
@@ -36,7 +37,7 @@ class PlayerController implements \Domain\ControllerInterface
     {
         $playerArray = (new PlayerFacade())->getAllPlayers();
         $playersAsJson = [];
-        foreach ($playerArray as $player){
+        foreach ($playerArray as $player) {
             /**
              * @var Player $player
              */
@@ -44,17 +45,19 @@ class PlayerController implements \Domain\ControllerInterface
         }
         $response = $requestDTO->getResponse();
         $response->getBody()->write(json_encode($playersAsJson));
-        return  $response;
+        return $response;
     }
 
-    private function isValidMode($mode){
+    private function isValidMode($mode)
+    {
         return array_key_exists($mode, self::MODES);
     }
 
-    private function switchModes($mode, RequestDTO $requestDTO):Response{
+    private function switchModes($mode, RequestDTO $requestDTO): Response
+    {
         $args = $requestDTO->getRequest()->getQueryParams();
 
-        switch ($mode){
+        switch ($mode) {
             case "getPlayer":
                 return $this->getSingle($args, $requestDTO);
             case "getAll":
@@ -69,7 +72,8 @@ class PlayerController implements \Domain\ControllerInterface
         */
     }
 
-    private function unknownEndpointResponse(RequestDTO $requestDTO):Response{
+    private function unknownEndpointResponse(RequestDTO $requestDTO): Response
+    {
         $response = $requestDTO->getResponse();
         $responseString = json_encode(array(
             "Message" => "Unknown Endpoint"

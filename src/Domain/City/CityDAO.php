@@ -32,7 +32,8 @@ class CityDAO implements CityDAOInterface
         // TODO: Implement create() method.
     }
 
-    private function getCityDataFromDatabase(DatabaseConnection $databaseConnection, int $databaseID ):array {
+    private function getCityDataFromDatabase(DatabaseConnection $databaseConnection, int $databaseID): array
+    {
         $sql = "select * from Cities where ID= :id";
         $values = array(
             ":id" => $databaseID

@@ -9,15 +9,15 @@ class PlayerFacade implements PlayerFacadeInterface
 
     public function getSinglePlayer(int $playerID): Player
     {
-        return  PlayerFactory::createWithDatabaseID($playerID);
+        return PlayerFactory::createWithDatabaseID($playerID);
     }
 
     public function getAllPlayers(): array
     {
         $idArray = (new PlayerDAO())->getAllIDs();
         $playerArray = [];
-        foreach ($idArray as $playerID){
-            array_push($playerArray,PlayerFactory::createWithDatabaseID($playerID));
+        foreach ($idArray as $playerID) {
+            array_push($playerArray, PlayerFactory::createWithDatabaseID($playerID));
         }
         return $playerArray;
     }

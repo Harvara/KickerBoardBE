@@ -26,20 +26,18 @@ class TeamDTO implements TeamDTOInterface
 
     public function getPlayer(int $index): ?Player
     {
-        if ($index===0){
+        if ($index === 0) {
             return $this->playerA;
-        }
-        elseif ($index===1){
+        } elseif ($index === 1) {
             return $this->playerB;
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     public function setPlayer(int $index, Player $player)
     {
-        switch ($index){
+        switch ($index) {
             case 0:
                 $this->playerA = $player;
                 break;
@@ -67,10 +65,10 @@ class TeamDTO implements TeamDTOInterface
         $jsonPlayerB = json_decode($this->playerB->getObjectAsJson());
         $jsonScore = json_decode(json_encode($this->score));
         $team = json_encode(get_object_vars($this));
-        $team = json_decode($team,true);
-        $team["playerA"]=$jsonPlayerA;
-        $team["playerB"]=$jsonPlayerB;
-        $team["score"]=$jsonScore;
+        $team = json_decode($team, true);
+        $team["playerA"] = $jsonPlayerA;
+        $team["playerB"] = $jsonPlayerB;
+        $team["score"] = $jsonScore;
         return json_encode($team);
 
     }

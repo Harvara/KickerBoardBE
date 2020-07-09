@@ -7,7 +7,6 @@ namespace Domain\Player;
 use Domain\City\City;
 
 
-
 class Player implements PlayerInterface
 {
 
@@ -122,7 +121,9 @@ class Player implements PlayerInterface
     {
         $encodedPlayerData = json_encode(get_object_vars($this));
         $decodedPlayerData = json_decode($encodedPlayerData, true);
-        if ($this->city){$decodedPlayerData["city"] = json_decode($this->city->getObjectAsJson());}
+        if ($this->city) {
+            $decodedPlayerData["city"] = json_decode($this->city->getObjectAsJson());
+        }
         return json_encode($decodedPlayerData);
     }
 }

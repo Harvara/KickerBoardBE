@@ -2,8 +2,6 @@
 
 namespace Domain;
 
-use Domain\Player\Player;
-
 interface DefaultFactoryInterface
 {
     public static function create(string $playerName): DefaultObjectInterface;

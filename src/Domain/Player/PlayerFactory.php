@@ -25,7 +25,8 @@ class PlayerFactory implements PlayerFactoryInterface
         return $player;
     }
 
-    private static function createPlayerFromArray(array $data){
+    private static function createPlayerFromArray(array $data)
+    {
         $player = new Player();
         $player->setPlayername($data["Playername"]);
         $player->setLastname($data["Lastname"]);

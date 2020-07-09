@@ -1,4 +1,5 @@
 <?php
+
 namespace Domain\City;
 
 use Domain\DefaultObjectInterface;

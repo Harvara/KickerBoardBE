@@ -4,7 +4,6 @@
 namespace Domain\Match;
 
 
-use Domain\Match\MatchInterface;
 use Domain\Team\TeamDTO;
 
 class Match implements MatchInterface
@@ -82,7 +81,6 @@ class Match implements MatchInterface
     {
         $this->playDate = $playDate;
     }
-
 
 
     public function getObjectAsJson(): string

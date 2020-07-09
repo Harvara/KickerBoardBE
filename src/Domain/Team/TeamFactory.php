@@ -8,7 +8,8 @@ use Domain\Player\PlayerFactory;
 
 class TeamFactory implements TeamFactoryInterface
 {
-    public static function create(int $idPlayerA, int $idPlayerB, int $score){
+    public static function create(int $idPlayerA, int $idPlayerB, int $score)
+    {
         $playerA = PlayerFactory::createWithDatabaseID($idPlayerA);
         $playerB = PlayerFactory::createWithDatabaseID($idPlayerB);
         $team = new TeamDTO();

@@ -6,5 +6,5 @@ namespace Domain;
 
 interface DefaultObjectInterface
 {
-    public function getObjectAsJson():string ;
+    public function getObjectAsJson(): string;
 }

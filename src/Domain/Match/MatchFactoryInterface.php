@@ -4,7 +4,9 @@
 namespace Domain\Match;
 
 
-interface MatchFactoryInterface extends \Domain\DefaultFactoryInterface
+use Domain\DefaultFactoryInterface;
+
+interface MatchFactoryInterface extends DefaultFactoryInterface
 {
 
 }

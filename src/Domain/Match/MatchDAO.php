@@ -30,11 +30,13 @@ class MatchDAO implements MatchDAOInterface
 
     }
 
-    public function getAllIDs():array {
+    public function getAllIDs(): array
+    {
 
     }
 
-    private function getMatchFromDatabase(DatabaseConnection $databaseConnection, int $databaseID):array {
+    private function getMatchFromDatabase(DatabaseConnection $databaseConnection, int $databaseID): array
+    {
         $sql = "select * from Matches where ID = :id";
         $values = array(
             ":id" => $databaseID
