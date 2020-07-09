@@ -1,14 +1,15 @@
 <?php
 
 
-namespace Domain\TeamInterface;
+namespace Domain\Team;
 
 
+use Domain\DefaultObjectInterface;
 use Domain\Player\Player;
 
-interface TeamDTOInterface
+interface TeamDTOInterface extends DefaultObjectInterface
 {
-    public function getPlayer(int $index):Player;
+    public function getPlayer(int $index):?Player;
     public function setPlayer(int $index, Player $player);
     public function getScore():int;
     public function setScore(int $score);

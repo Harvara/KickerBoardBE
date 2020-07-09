@@ -4,8 +4,8 @@
 namespace Domain\Player;
 
 
-interface PlayerFactoryInterface
+use Domain\DefaultFactoryInterface;
+
+interface PlayerFactoryInterface extends DefaultFactoryInterface
 {
-    public static function create(string $playerName):Player;
-    public static function createWithDatabaseID(int $databaseID):Player;
 }

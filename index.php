@@ -1,11 +1,13 @@
 <?php
 
 
+use Domain\Match\MatchController;
 use Domain\Player\PlayerController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Domain\Request\RequestDTO;
+
 
 require_once "vendor/autoload.php";
 
@@ -23,6 +25,16 @@ $app->get('/api/player/{mode}', function (Request $request, Response $response, 
     $response = (new PlayerController())->indexAction($mode, $requestData);
     return $response->withHeader("Content-type", "application/json");
 });
+
+
+$app->get('/api/match/{mode}', function (Request $request, Response $response, $args) {
+    $mode = $args["mode"];
+    $requestData = new RequestDTO($response, $request);
+    $response = (new MatchController())->indexAction($mode, $requestData);
+    return $response->withHeader("Content-type", "application/json");
+});
+
+
 
 function getSingle(){
     echo "Call from index.php";

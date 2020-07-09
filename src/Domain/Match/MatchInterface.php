@@ -1,10 +1,11 @@
 <?php
 
 
-namespace Domain\MatchInterface;
+namespace Domain\Match;
 
+use Domain\DefaultObjectInterface;
 
-interface MatchInterface
+interface MatchInterface extends DefaultObjectInterface
 {
     public function createGame($name);
     public function updateGame($game);

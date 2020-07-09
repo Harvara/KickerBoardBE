@@ -36,6 +36,6 @@ class MysqlConnection implements DBMSConnectionInterface
     public function execute(array $values): array
     {
         $this->statment->execute($values);
-        return  $this->statment->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statment->fetchAll(PDO::FETCH_ASSOC);
     }
 }

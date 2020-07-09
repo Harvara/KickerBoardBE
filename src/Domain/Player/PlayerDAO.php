@@ -4,7 +4,6 @@
 namespace Domain\Player;
 
 
-
 use Persistence\DatabaseConnection;
 use Persistence\DatabaseConnectionFactory;
 
@@ -15,6 +14,16 @@ class PlayerDAO implements PlayerDAOInterface
     {
         $databaseConnection = DatabaseConnectionFactory::create("mysql");
         return $this->getPlayerDataFromDatabase($databaseConnection, $databaseIndex);
+    }
+
+    private function getPlayerDataFromDatabase(DatabaseConnection $databaseConnection, int $databaseIndex): array
+    {
+        $sql = "select * from Players where ID = :id";
+        $values = array(
+            ":id" => $databaseIndex
+        );
+        $data = $databaseConnection->executeSelectStatement($sql, $values);
+        return $data[0];
     }
 
     public function update(Player $player)
@@ -32,16 +41,6 @@ class PlayerDAO implements PlayerDAOInterface
         // TODO: Implement create() method.
     }
 
-
-    private function getPlayerDataFromDatabase(DatabaseConnection $databaseConnection, int $databaseIndex):array {
-        $sql = "select * from Players where ID = :id";
-        $values = array(
-            ":id"=>$databaseIndex
-        );
-        $data = $databaseConnection->executeSelectStatement($sql, $values);
-        return $data[0];
-    }
-
     public function getAllIDs(): array
     {
         $databaseConnection = DatabaseConnectionFactory::create("mysql");
@@ -49,9 +48,10 @@ class PlayerDAO implements PlayerDAOInterface
         return $this->createArrayFromDBResult($databaseConnection->executeSelectStatement($sql, array()));
     }
 
-    private function createArrayFromDBResult($data):array {
+    private function createArrayFromDBResult($data): array
+    {
         $idArray = [];
-        foreach ($data as $dbEntry){
+        foreach ($data as $dbEntry) {
             array_push($idArray, $dbEntry["ID"]);
         }
         return $idArray;

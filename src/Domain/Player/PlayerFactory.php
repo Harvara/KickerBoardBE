@@ -5,19 +5,20 @@ namespace Domain\Player;
 
 
 use Domain\City\CityFactory;
+use Domain\DefaultObjectInterface;
 
 
 class PlayerFactory implements PlayerFactoryInterface
 {
 
 
-    public static function createWithDatabaseID(int $databaseID): Player
+    public static function createWithDatabaseID(int $databaseID): DefaultObjectInterface
     {
         $data = (new PlayerDAO())->get($databaseID);
         return self::createPlayerFromArray($data);
     }
 
-    public static function create(string $playerName): Player
+    public static function create(string $playerName): DefaultObjectInterface
     {
         $player = new Player();
         $player->setPlayername($playerName);

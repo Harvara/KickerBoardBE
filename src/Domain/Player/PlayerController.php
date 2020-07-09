@@ -5,21 +5,19 @@ namespace Domain\Player;
 
 
 use Domain\Request\RequestDTO;
-use phpDocumentor\Reflection\Types\This;
 use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
 class PlayerController implements \Domain\ControllerInterface
 {
 
     const MODES = array(
-        "getPlayer" => "getSingle1",
+        "getPlayer" => "getSingle",
         "getAll" => "getAll"
     );
 
     public function indexAction(string $mode, RequestDTO $requestDTO): Response
     {
-        if($this->isValid($mode)){
+        if($this->isValidMode($mode)){
             return $this->switchModes($mode, $requestDTO);
         }
         return $this->unknownEndpointResponse($requestDTO);
@@ -28,10 +26,10 @@ class PlayerController implements \Domain\ControllerInterface
 
     public function getSingle(array $args, RequestDTO $requestDTO): Response
     {
-        $player = PlayerFactory::createWithDatabaseID($args["id"]);
-        $respone = $requestDTO->getResponse();
-        $respone->getBody()->write($player->getObjectAsJson());
-        return $respone;
+        $player = (new PlayerFacade())->getSinglePlayer($args["id"]);
+        $response = $requestDTO->getResponse();
+        $response->getBody()->write($player->getObjectAsJson());
+        return $response;
     }
 
     public function getAll(array $args, RequestDTO $requestDTO): Response
@@ -49,7 +47,7 @@ class PlayerController implements \Domain\ControllerInterface
         return  $response;
     }
 
-    private function isValid($mode){
+    private function isValidMode($mode){
         return array_key_exists($mode, self::MODES);
     }
 
@@ -73,7 +71,10 @@ class PlayerController implements \Domain\ControllerInterface
 
     private function unknownEndpointResponse(RequestDTO $requestDTO):Response{
         $response = $requestDTO->getResponse();
-        $response->getBody()->write("Unkown Endpoint");
+        $responseString = json_encode(array(
+            "Message" => "Unknown Endpoint"
+        ));
+        $response->getBody()->write($responseString);
         return $response;
     }
 
