@@ -4,7 +4,7 @@ namespace Domain\Match;
 
 interface MatchDAOInterface
 {
-    public function get(int $databaseID): array;
+    public function get(int $databaseID): ?array;
 
     public function update(Match $match): bool;
 

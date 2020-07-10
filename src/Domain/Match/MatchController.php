@@ -4,6 +4,8 @@
 namespace Domain\Match;
 
 
+use Domain\DependencyPluginTransferMessage;
+use Domain\DependencyPluginTransferMessageFactory;
 use Domain\Request\RequestDTO;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -36,10 +38,15 @@ class MatchController implements MatchControllerInterface
 
     public function getSingle(array $args, RequestDTO $requestDTO): Response
     {
-        $match = (new MatchFacade())->getSingleMatch($args["id"]);
-        $response = $requestDTO->getResponse();
-        $response->getBody()->write($match->getObjectAsJson());
-        return $response;
+        if ($this->runDependencyProvider($args)){
+            $match = (new MatchFacade())->getSingleMatch($args["id"]);
+            $response = $requestDTO->getResponse();
+            $response->getBody()->write($match->getObjectAsJson());
+            return $response;
+        }
+        return $this->unknownEndpointResponse($requestDTO);
+
+
     }
 
     public function getAll(array $args, RequestDTO $requestDTO): Response
@@ -63,4 +70,30 @@ class MatchController implements MatchControllerInterface
         return $response;
     }
 
+    /**
+     * @param array $args
+     * @param DependencyPluginTransferMessage[] $dependencyPluginTransferMessage
+     * @return bool
+     */
+    private function runDependencyProvider(array $args):bool{
+        $dependencyProvider = new MatchDependencyProvider($this->prepareDependencyPluginTransferMessage($args));
+        $dependencyProvider->check();
+        return $dependencyProvider->getDependencyPluginTransferMessage()->isRunWithoutError ();
+    }
+
+    /**
+     * @param array $args
+     * @return DependencyPluginTransferMessage
+     */
+    private function prepareDependencyPluginTransferMessage(array $args):DependencyPluginTransferMessage{
+        $matchData = array(
+            "matchData" => array(
+                "matchID" => $args["id"]
+            )
+        );
+        $dependencyPluginTransferMessage =
+            DependencyPluginTransferMessageFactory::create($matchData);
+        $dependencyPluginTransferMessage->setRunWithoutError(true);
+        return  $dependencyPluginTransferMessage;
+    }
 }

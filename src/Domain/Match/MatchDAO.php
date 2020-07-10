@@ -9,7 +9,7 @@ use Persistence\DatabaseConnectionFactory;
 
 class MatchDAO implements MatchDAOInterface
 {
-    public function get(int $databaseID): array
+    public function get(int $databaseID): ?array
     {
         $databaseConnection = DatabaseConnectionFactory::create("mysql");
         return $this->getMatchFromDatabase($databaseConnection, $databaseID);
@@ -35,7 +35,7 @@ class MatchDAO implements MatchDAOInterface
 
     }
 
-    private function getMatchFromDatabase(DatabaseConnection $databaseConnection, int $databaseID): array
+    private function getMatchFromDatabase(DatabaseConnection $databaseConnection, int $databaseID): ?array
     {
         $sql = "select * from Matches where ID = :id";
         $values = array(

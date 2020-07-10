@@ -34,6 +34,13 @@ class Match implements MatchInterface
         // TODO: Implement updateGame() method.
     }
 
+    public function isPlayDateSet(): bool {
+        if ($this->playDate){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return TeamDTO
      */

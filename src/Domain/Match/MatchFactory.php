@@ -18,7 +18,10 @@ class MatchFactory implements MatchFactoryInterface
     public static function createWithDatabaseID(int $databaseID): DefaultObjectInterface
     {
         $data = (new MatchDAO())->get($databaseID);
-        return self::createMatchFromArray($data);
+        if ($data){
+            return self::createMatchFromArray($data);
+        }
+        return new Match();
 
     }
 
